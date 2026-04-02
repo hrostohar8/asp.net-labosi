@@ -17,7 +17,23 @@ var fighters = new List<Fighter>
     new Fighter("Max Holloway", WeightClass.Featherweight, FightOrganization.UFC),
     new Fighter("Jon Jones", WeightClass.LightHeavyweight, FightOrganization.UFC),
     new Fighter("Francis Ngannou", WeightClass.Heavyweight, FightOrganization.UFC),
-    new Fighter("Petr Yan", WeightClass.Bantamweight, FightOrganization.UFC)
+    new Fighter("Petr Yan", WeightClass.Bantamweight, FightOrganization.UFC),
+    new Fighter("Robert Whittaker", WeightClass.Middleweight, FightOrganization.UFC),
+    new Fighter("Colby Covington", WeightClass.Welterweight, FightOrganization.UFC),
+    new Fighter("Amanda Nunes", WeightClass.Flyweight, FightOrganization.UFC),
+    new Fighter("Khabib Nurmagomedov", WeightClass.Lightweight, FightOrganization.UFC),
+    new Fighter("Alexander Volkanovski", WeightClass.Featherweight, FightOrganization.UFC),
+    new Fighter("Daniel Cormier", WeightClass.LightHeavyweight, FightOrganization.UFC),
+    new Fighter("Stipe Miocic", WeightClass.Heavyweight, FightOrganization.UFC),
+    new Fighter("TJ Dillashaw", WeightClass.Bantamweight, FightOrganization.UFC),
+    // BELLATOR borci
+    new Fighter("Patricio Freire", WeightClass.Featherweight, FightOrganization.BELLATOR),
+    new Fighter("AJ McKee", WeightClass.Featherweight, FightOrganization.BELLATOR),
+    new Fighter("Sergei Kharitonov", WeightClass.Heavyweight, FightOrganization.BELLATOR),
+    new Fighter("Alexander Volkov", WeightClass.Heavyweight, FightOrganization.BELLATOR),
+    // KSW borci
+    new Fighter("Roberto Soldić", WeightClass.Welterweight, FightOrganization.KSW),
+    new Fighter("Mamed Khalidov", WeightClass.Welterweight, FightOrganization.KSW)
 };
 
 var events = new List<Event>
@@ -29,11 +45,11 @@ var events = new List<Event>
 
 var matches = new List<Match>
 {
-    new Match(fighters[0], fighters[1], WeightClass.Middleweight, events[0]),
-    new Match(fighters[3], fighters[2], WeightClass.Lightweight, events[0]),
-    new Match(fighters[4], fighters[7], WeightClass.Featherweight, events[1]),
-    new Match(fighters[5], fighters[6], WeightClass.Heavyweight, events[1]),
-    new Match(fighters[1], fighters[2], WeightClass.Welterweight, events[2])
+    new Match(fighters[0], fighters[8], WeightClass.Middleweight, events[0]),
+    new Match(fighters[3], fighters[11], WeightClass.Lightweight, events[0]),
+    new Match(fighters[16], fighters[17], WeightClass.Featherweight, events[1]),
+    new Match(fighters[18], fighters[19], WeightClass.Heavyweight, events[1]),
+    new Match(fighters[20], fighters[21], WeightClass.Welterweight, events[2])
 };
 
 foreach (var match in matches)
@@ -64,8 +80,5 @@ foreach (var m in welter)
 Console.WriteLine($"\n=== Kosarica za {cart.User.Name} ===");
 Console.WriteLine($"Ukupno karata: {cart.Tickets.Count}");
 Console.WriteLine($"Ukupna cijena: {cart.Tickets.Sum(t => t.Price):C}");
-
-Console.WriteLine("Gotovo. Projekat je popunjen i LINQ radi.");
-
 
 
