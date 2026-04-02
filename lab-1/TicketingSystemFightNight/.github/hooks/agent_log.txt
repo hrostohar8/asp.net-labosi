@@ -1,0 +1,376 @@
+================================================================================
+COPILOT CHAT HISTORY - Lab 1
+TicketingSystemFightNight Project
+Student: Hrvoje Rostohar
+Datum: 28.03.2026
+================================================================================
+
+
+================================================================================
+[CONVERSATION 1]
+================================================================================
+
+USER:
+Hej, moram napraviti za faks projekt za premdmet web aplikacije u ASP.NET. Odabrao sam temu "Sustav za rezervaciju mjesta (ulaznica) za borilačke evente.
+
+
+================================================================================
+[CONVERSATION 2]
+================================================================================
+
+USER:
+E sad cu ti poslati smjernice za prvi labos. Takoder sto sam ti mislio reci je da cu pisati kod u visual studiu, a vs code ce mi koristiti zbog copilota, tako da u pincipu imam otvoreno oboje u isto vrijeme. Evo ti smjernice.
+
+
+
+
+
+
+================================================================================
+[CONVERSATION 3]
+================================================================================
+
+USER:
+Okej, dobro razmisljaš, no ja bi htio malu korekciju logike. U principu, za pocetak bi htio klasukoja predstavlja tip organizacije. UFC, KSW, FNC, BELLATOR, ONE FC. 
+
+
+
+Generalno ideja je ovakva. Na portalu su dostupni eventi, UFC fight night, Bellator fight night itd itd. 
+
+Korisnik odabere za koji event zeli kupiti kartu i dodati u kosaricu. Nakon sto odabere event, izade mu popis boraca tj meceva za taj event, takoder grad di se odvija, datum, vrijeme. Svaki event ima naziv, npr UFC 276, grad, datum, vrijeme, arenu(arena ima odredeni broj mjesta). Takoder svaki borac pripada odredenoj kategoriji. Poslat cu ti i logiku za kateogrije. 
+
+
+
+        Flyweight,      // do 57kg
+
+        Bantamweight,   // do 61kg
+
+        Featherweight,  // do 66kg
+
+        Lightweight,    // do 70kg
+
+        Welterweight,   // do 77kg
+
+        Middleweight,   // do 84kg
+
+        LightHeavyweight, // do 93kg
+
+        Heavyweight     // 93kg+
+
+
+
+
+
+
+
+I koristi imena pravih boraca kao tesnte objekte ako imas pristup podacima 
+
+
+================================================================================
+[CONVERSATION 4]
+================================================================================
+
+USER:
+hej mozes li mi reci sto si sada izgenerirao, stalno me ispitujes nesto allow, daj napravi model klasa kako sam opisao u promptu
+
+
+================================================================================
+[CONVERSATION 5]
+================================================================================
+
+USER:
+okej super, no mozes li sada odvojiti na nacin da je svaka klasa zasebni fajl, a ne sve klase u Domain.cs
+
+
+================================================================================
+[CONVERSATION 6]
+================================================================================
+
+USER:
+jesi li gotov?
+
+
+================================================================================
+[CONVERSATION 7]
+================================================================================
+
+USER:
+okej, koliko smo bilzu rjesavanju ovih smjernica 
+
+
+================================================================================
+[CONVERSATION 8]
+================================================================================
+
+USER:
+mozes li mi sada ukratko objasniti ovaj model klasa koji si napravio, dio po dio, i kako ih pllaniras kombinirati. Objasni kao da sam osoba kojoj fali dosta konteksta u ovu aplikaciju
+
+
+================================================================================
+[CONVERSATION 9]
+================================================================================
+
+USER:
+stalno mi baca ovaj error CS0101
+
+
+================================================================================
+[CONVERSATION 10]
+================================================================================
+
+USER:
+daj mi molim te objasni sto me stalno pitas ovo pwsh command?
+
+
+================================================================================
+[CONVERSATION 11]
+================================================================================
+
+USER:
+aj probaj skuziti zasto stalno kaze da klasa npr Event, je vec definirana negdje. To mi crveno podcrtava u visual studiu
+
+
+================================================================================
+[CONVERSATION 12]
+================================================================================
+
+USER:
+E super, ajmo sada ovako, reci mi jesi li napisao cijeli kod potreban za rjesiti onu sliku smjernica koje sam ti slao. 
+
+Ako si sve zadatke ispunio, reci mi potvrdno. Kada zavrsimo sa cijelim kodom za Labos 1 (slika koju sam ti slao) ja cu nauciti i razumijeti cijeli tvoj kod. Daj mi povratnu informaciju pls
+
+
+================================================================================
+[CONVERSATION 13]
+================================================================================
+
+USER:
+necemo nista jos dodavati, znaci ovo je sve napravljeno ?
+
+
+================================================================================
+[CONVERSATION 14]
+================================================================================
+
+USER:
+okej super, mozes li mi sada generirati jedan tekst, di ces objasniti sazeto cijeli kod, znaci nista ne pisi u kodu samo proleti u jednom tekst promptu cijeli kod i sve modele, ja cu sve proci, razumijeti, i ako negjde zapne te pitam 
+
+
+================================================================================
+[CONVERSATION 15]
+================================================================================
+
+USER:
+Važna napomena
+
+: pri dodavanju nove klase njena vidljivost jeautomatski postavljena na „internal", te da bi klasa bila vidljiva udrugim projektima potrebno ju je definirati kao „public".
+
+
+
+
+
+daj samo molim te provjeri jer ovaj uvjet zadovoljen, i ako nije napravi promjene di treba
+
+
+================================================================================
+[CONVERSATION 16]
+================================================================================
+
+USER:
+hej, samo provjeravam jel radis
+
+
+================================================================================
+[CONVERSATION 17]
+================================================================================
+
+USER:
+provjeravam jel mi radi logger
+
+
+================================================================================
+[CONVERSATION 18]
+================================================================================
+
+USER:
+ma da malo zapinje
+
+
+================================================================================
+[CONVERSATION 19]
+================================================================================
+
+USER:
+hej jesi tu
+
+
+================================================================================
+[CONVERSATION 20]
+================================================================================
+
+USER:
+pitam te pitanje samo da testiram log
+
+
+================================================================================
+[CONVERSATION 21]
+================================================================================
+
+USER:
+aj pogledaj molim te agent_log.txt i vidi sto se ispisalo
+
+
+================================================================================
+[CONVERSATION 22]
+================================================================================
+
+USER:
+pogledaj settings.json i pogledaj jesam li nesto krivo napisao, cudno mi se totalno logira
+
+
+================================================================================
+[CONVERSATION 23]
+================================================================================
+
+USER:
+{
+
+  "hooks": {
+
+    "UserPromptSubmit": [
+
+      {
+
+        "type": "command",
+
+        "command": "cmd /c echo USER_PROMPT_SUBMIT >> .github\\hooks\\agent_log.txt"
+
+      }
+
+    ],
+
+    "preToolUse": [
+
+      {
+
+        "type": "command",
+
+        "command": "cmd /c echo PRE_TOOL_USE >> .github\\hooks\\agent_log.txt"
+
+      }
+
+    ]
+
+  }
+
+}
+
+
+================================================================================
+[CONVERSATION 24]
+================================================================================
+
+USER:
+al zar se nebi trebao logirati moj tekst koji tebi pisem i tvoje response?
+
+
+
+
+
+
+================================================================================
+[CONVERSATION 25]
+================================================================================
+
+USER:
+znaci sve radi dobro?
+
+
+================================================================================
+[CONVERSATION 26]
+================================================================================
+
+USER:
+zasto onda na internetu na githuba nemogu vidjeti promjene na agent_log.txt
+
+
+================================================================================
+[CONVERSATION 27]
+================================================================================
+
+USER:
+GitHub Copilot: Export Chat History
+
+
+
+================================================================================
+COPILOT CHAT HISTORY EXPORT
+TicketingSystemFightNight Project
+Student: Hrvoje Rostohar
+Datum: 28.03.2026
+================================================================================
+
+
+================================================================================
+[CONVERSATION 1]
+================================================================================
+
+USER:
+var matches = new List<Match>
+
+{
+
+    new Match(fighters[0], fighters[1], WeightClass.Middleweight, events[0]),
+
+    new Match(fighters[3], fighters[2], WeightClass.Lightweight, events[0]),
+
+    new Match(fighters[4], fighters[7], WeightClass.Featherweight, events[1]),
+
+    new Match(fighters[5], fighters[6], WeightClass.Heavyweight, events[1]),
+
+    new Match(fighters[1], fighters[2], WeightClass.Welterweight, events[2])
+
+};
+
+
+
+
+
+hej na ovom dijelu si kombinirao borce iz razlicitih kategorija, sto nemoze biti slucaj, mec di se bore borci iz razlicitih kategorija...dodaj rade vise boraca u "fighters" listu i onda kombiniraj borce istih kategorija u "matches"
+
+COPILOT: [Response not saved in export format]
+
+--------------------------------------------------------------------------------
+
+================================================================================
+[CONVERSATION 2]
+================================================================================
+
+USER:
+jedna sitnica je potrebna za korogirati....u principu tebi ovdje borci koji pripadaju tj imaju ugovor za UFC, doslovno im dajemo u konsturkto kad ih stvaramo enum organizacije, a kasnije ih slazes da se bore u npr KSW...treba dodati da ako ima fighter u sebi ugovor za UFC, nemoze se boriti u KSW
+
+COPILOT: [Response not saved in export format]
+
+--------------------------------------------------------------------------------
+
+================================================================================
+[CONVERSATION 3]
+================================================================================
+
+USER:
+export chat as json
+
+COPILOT: [Response not saved in export format]
+
+--------------------------------------------------------------------------------
+
+================================================================================
+[CONVERSATION 4]
+================================================================================
+
+USER:
+GitHub Copilot: Export Chat History
+
+COPILOT: [Response not saved in export format]
+
+--------------------------------------------------------------------------------

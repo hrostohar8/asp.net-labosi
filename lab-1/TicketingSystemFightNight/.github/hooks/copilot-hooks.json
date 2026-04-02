@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "postChatResponse": [
+      {
+        "type": "command",
+        "command": "powershell -Command \"$input | Add-Content -Path '.github/hooks/agent_log.txt'\""
+      }
+    ],
+    "postInlineCompletion": [
+      {
+        "type": "command",
+        "command": "powershell -Command \"$input | Add-Content -Path '.github/hooks/agent_log.txt'\""
+      }
+    ]
+  }
+}
