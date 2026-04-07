@@ -1,0 +1,60 @@
+================================================================================
+SUBAGENT INVOCATION LOG
+Project: TicketingSystemFightNight
+Generated: 2026-04-07
+================================================================================
+
+[ENTRY 1]
+Timestamp: 2026-04-07T17:10:00Z
+Invoker: Main Agent
+Sub-agent: UX Subagent
+Trigger: /UX Style And Components
+Task: Improve styling and UI components for Index/Details pages
+Status: Completed
+
+[ENTRY 2]
+Timestamp: 2026-04-07T17:11:00Z
+Invoker: Main Agent
+Sub-agent: UX Subagent
+Validation: Navigation and breadcrumbs checked
+Status: Passed
+
+[ENTRY 3]
+Timestamp: 2026-04-07T18:10:00Z
+Invoker: Main Agent
+Sub-agent: UX Subagent
+Trigger: Manual hook wiring verification
+Status: Appended
+
+[ENTRY 4]
+Timestamp: 2026-04-07T18:20:00Z
+Invoker: Main Agent
+Sub-agent: UX Subagent
+Trigger: /UX-Delegate promjeni da je Fight Night u hedaeru u caps locku
+Task: Updated header text casing in file Views/Shared/_Layout.cshtml
+Status: Completed
+
+[ENTRY 5]
+Timestamp: 2026-04-07T18:25:00Z
+Invoker: Main Agent
+Sub-agent: UX Subagent
+Trigger: Delegate task and style minor UX shortcomings
+Task: Applied minor UX styling improvements in files Views/Home/Index.cshtml, Views/Shared/_Layout.cshtml, wwwroot/css/site.css
+Status: Completed
+
+[ENTRY 6]
+Timestamp: 2026-04-07T18:30:00Z
+Invoker: Main Agent
+Sub-agent: UX Subagent
+Trigger: User reported subagent log not updating
+Task: Diagnosed logging issue and added deterministic orchestrator START/STOP logging
+Note: Hooks were unreliable; deterministic orchestrator logging was added.
+Status: Diagnosed
+
+[ENTRY 7]
+Timestamp: 2026-04-07T18:45:00Z
+Invoker: Main Agent
+Sub-agent: UX Subagent
+Trigger: i dodaj ovaj prompt u logger
+Task: Added current prompt request to subagent invocation log.
+Status: Appended

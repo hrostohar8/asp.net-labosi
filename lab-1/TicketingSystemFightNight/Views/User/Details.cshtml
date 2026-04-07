@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model TicketingSystemFightNight.Models.User
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <a asp-controller="User" asp-action="Index">Korisnici</a> /
+    <span>Detalji</span>
+</nav>
+
+<h2>Detalji - @Model.Name</h2>
+
+<div class="details-container">
+    <div class="detail-item">
+        <strong>Ime:</strong>
+        <span>@Model.Name</span>
+    </div>
+    <div class="detail-item">
+        <strong>Email:</strong>
+        <span>@Model.Email</span>
+    </div>
+    <div class="detail-item">
+        <strong>Telefon:</strong>
+        <span>@Model.Phone</span>
+    </div>
+    <div class="detail-item">
+        <strong>Datum rođenja:</strong>
+        <span>@Model.BirthDate.ToString("dd.MM.yyyy")</span>
+    </div>
+    <div class="detail-item">
+        <strong>Loyalty bodovi:</strong>
+        <span>@Model.LoyaltyPoints</span>
+    </div>
+    <div class="detail-item">
+        <strong>VIP korisnik:</strong>
+        <span>@(Model.IsVip ? "Da" : "Ne")</span>
+    </div>
+    <div class="detail-item">
+        <strong>Razina članstva:</strong>
+        <span>@Model.MemberLevel</span>
+    </div>
+</div>
+
+<a asp-controller="User" asp-action="Index">Povratak na listu korisnika</a>

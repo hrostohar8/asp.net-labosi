@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model List<TicketingSystemFightNight.Models.Ticket>
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <span>Karte</span>
+</nav>
+
+<h2>Pregled - Karte</h2>
+
+<div class="entity-grid">
+    @foreach (var ticket in Model)
+    {
+        <article class="entity-card">
+            <h3>Karta #@ticket.Id</h3>
+            <div class="entity-props">
+                <p><strong>Id:</strong> @ticket.Id</p>
+                <p><strong>Događaj:</strong> @ticket.Event.Name</p>
+                <p><strong>Sektor:</strong> @ticket.Section</p>
+                <p><strong>Red:</strong> @ticket.Row</p>
+                <p><strong>Sjedište:</strong> @ticket.Seat</p>
+                <p><strong>Cijena:</strong> @ticket.Price.ToString("C")</p>
+                <p><strong>Datum kupnje:</strong> @ticket.PurchaseDate.ToString("dd.MM.yyyy")</p>
+                <p><strong>VIP:</strong> @(ticket.IsVip ? "Da" : "Ne")</p>
+            </div>
+            <a class="btn" asp-controller="Ticket" asp-action="Details" asp-route-id="@ticket.Id">Detalji</a>
+        </article>
+    }
+</div>

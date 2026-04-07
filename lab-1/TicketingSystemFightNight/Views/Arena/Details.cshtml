@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model TicketingSystemFightNight.Models.Arena
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <a asp-controller="Arena" asp-action="Index">Arene</a> /
+    <span>Detalji</span>
+</nav>
+
+<h2>Detalji - @Model.Name</h2>
+
+<div class="details-container">
+    <div class="detail-item">
+        <strong>Naziv:</strong>
+        <span>@Model.Name</span>
+    </div>
+    <div class="detail-item">
+        <strong>Grad:</strong>
+        <span>@Model.City</span>
+    </div>
+    <div class="detail-item">
+        <strong>Kapacitet:</strong>
+        <span>@Model.Capacity</span>
+    </div>
+    <div class="detail-item">
+        <strong>Adresa:</strong>
+        <span>@Model.Address</span>
+    </div>
+    <div class="detail-item">
+        <strong>Tip:</strong>
+        <span>@(Model.IsIndoor ? "Unutarnja arena" : "Vanjska arena")</span>
+    </div>
+    <div class="detail-item">
+        <strong>Otvorena:</strong>
+        <span>@Model.OpenedYear</span>
+    </div>
+</div>
+
+<a asp-controller="Arena" asp-action="Index">Povratak na listu arena</a>

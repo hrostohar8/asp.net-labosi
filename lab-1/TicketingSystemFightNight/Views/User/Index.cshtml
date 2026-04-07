@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model List<TicketingSystemFightNight.Models.User>
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <span>Korisnici</span>
+</nav>
+
+<h2>Pregled - Korisnici</h2>
+
+<div class="entity-grid">
+    @foreach (var user in Model)
+    {
+        <article class="entity-card">
+            <h3>@user.Name</h3>
+            <div class="entity-props">
+                <p><strong>Id:</strong> @user.Id</p>
+                <p><strong>Email:</strong> @user.Email</p>
+                <p><strong>Telefon:</strong> @user.Phone</p>
+                <p><strong>Datum rođenja:</strong> @user.BirthDate.ToString("dd.MM.yyyy")</p>
+                <p><strong>Loyalty bodovi:</strong> @user.LoyaltyPoints</p>
+                <p><strong>VIP:</strong> @(user.IsVip ? "Da" : "Ne")</p>
+                <p><strong>Razina:</strong> @user.MemberLevel</p>
+            </div>
+            <a class="btn" asp-controller="User" asp-action="Details" asp-route-id="@user.Id">Detalji</a>
+        </article>
+    }
+</div>

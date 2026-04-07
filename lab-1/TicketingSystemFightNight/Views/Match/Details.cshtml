@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model TicketingSystemFightNight.Models.Match
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <a asp-controller="Match" asp-action="Index">Mečevi</a> /
+    <span>Detalji</span>
+</nav>
+
+<h2>Detalji - @Model.Fighter1.Name vs @Model.Fighter2.Name</h2>
+
+<div class="details-container">
+    <div class="detail-item">
+        <strong>Borac 1:</strong>
+        <span>@Model.Fighter1.Name (@Model.Fighter1.Nickname)</span>
+    </div>
+    <div class="detail-item">
+        <strong>Borac 2:</strong>
+        <span>@Model.Fighter2.Name (@Model.Fighter2.Nickname)</span>
+    </div>
+    <div class="detail-item">
+        <strong>Težinska klasa:</strong>
+        <span>@Model.WeightClass</span>
+    </div>
+    <div class="detail-item">
+        <strong>Događaj:</strong>
+        <span>@Model.Event.Name</span>
+    </div>
+    <div class="detail-item">
+        <strong>Broj rundi:</strong>
+        <span>@Model.RoundLimit</span>
+    </div>
+    <div class="detail-item">
+        <strong>Šampionski meč:</strong>
+        <span>@(Model.Championship ? "Da" : "Ne")</span>
+    </div>
+    <div class="detail-item">
+        <strong>Sudac:</strong>
+        <span>@Model.Referee</span>
+    </div>
+    <div class="detail-item">
+        <strong>Status:</strong>
+        <span>@Model.Status</span>
+    </div>
+</div>
+
+<a asp-controller="Match" asp-action="Index">Povratak na listu mečeva</a>

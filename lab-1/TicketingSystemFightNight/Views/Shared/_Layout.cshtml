@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Ticketing System Fight Night</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    @{ 
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    }
+    <nav class="main-nav" aria-label="Glavna navigacija">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a asp-controller="Home" asp-action="Index">FIGHT NIGHT</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a class="@(currentController == "Home" ? "active" : "")" aria-current="@(currentController == "Home" ? "page" : null)" asp-controller="Home" asp-action="Index">Početna</a></li>
+                <li><a class="@(currentController == "Dashboard" ? "active" : "")" aria-current="@(currentController == "Dashboard" ? "page" : null)" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+                <li><a class="@(currentController == "Fighter" ? "active" : "")" aria-current="@(currentController == "Fighter" ? "page" : null)" asp-controller="Fighter" asp-action="Index">Borci</a></li>
+                <li><a class="@(currentController == "Event" ? "active" : "")" aria-current="@(currentController == "Event" ? "page" : null)" asp-controller="Event" asp-action="Index">Događaji</a></li>
+                <li><a class="@(currentController == "Arena" ? "active" : "")" aria-current="@(currentController == "Arena" ? "page" : null)" asp-controller="Arena" asp-action="Index">Arene</a></li>
+                <li><a class="@(currentController == "Match" ? "active" : "")" aria-current="@(currentController == "Match" ? "page" : null)" asp-controller="Match" asp-action="Index">Mečevi</a></li>
+                <li><a class="@(currentController == "Ticket" ? "active" : "")" aria-current="@(currentController == "Ticket" ? "page" : null)" asp-controller="Ticket" asp-action="Index">Karte</a></li>
+                <li><a class="@(currentController == "User" ? "active" : "")" aria-current="@(currentController == "User" ? "page" : null)" asp-controller="User" asp-action="Index">Korisnici</a></li>
+                <li><a class="@(currentController == "Cart" ? "active" : "")" aria-current="@(currentController == "Cart" ? "page" : null)" asp-controller="Cart" asp-action="Index">Košarice</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main-content" class="main-content">
+        @RenderBody()
+    </main>
+
+    <footer class="main-footer" role="contentinfo">
+        <p>&copy; @DateTime.Now.Year - Ticketing System Fight Night</p>
+    </footer>
+
+    <script src="~/js/site.js"></script>
+</body>
+</html>

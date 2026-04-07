@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model TicketingSystemFightNight.Models.Fighter
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <a asp-controller="Fighter" asp-action="Index">Borci</a> /
+    <span>Detalji</span>
+</nav>
+
+<h2>Detalji - @Model.Name</h2>
+
+<div class="details-container">
+    <div class="detail-item">
+        <strong>Ime:</strong>
+        <span>@Model.Name</span>
+    </div>
+    <div class="detail-item">
+        <strong>Nadimak:</strong>
+        <span>@Model.Nickname</span>
+    </div>
+    <div class="detail-item">
+        <strong>Težinska klasa:</strong>
+        <span>@Model.WeightClass</span>
+    </div>
+    <div class="detail-item">
+        <strong>Organizacija:</strong>
+        <span>@Model.Organization</span>
+    </div>
+    <div class="detail-item">
+        <strong>Država:</strong>
+        <span>@Model.Country</span>
+    </div>
+    <div class="detail-item">
+        <strong>Pobjede:</strong>
+        <span>@Model.Wins</span>
+    </div>
+    <div class="detail-item">
+        <strong>Porazi:</strong>
+        <span>@Model.Losses</span>
+    </div>
+</div>
+
+<a asp-controller="Fighter" asp-action="Index">Povratak na listu boraca</a>

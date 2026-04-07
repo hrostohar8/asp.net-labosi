@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model List<TicketingSystemFightNight.Models.Event>
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <span>Događaji</span>
+</nav>
+
+<h2>Pregled - Događaji</h2>
+
+<div class="entity-grid">
+    @foreach (var eventModel in Model)
+    {
+        <article class="entity-card">
+            <h3>@eventModel.Name</h3>
+            <div class="entity-props">
+                <p><strong>Id:</strong> @eventModel.Id</p>
+                <p><strong>Organizacija:</strong> @eventModel.Organization</p>
+                <p><strong>Grad:</strong> @eventModel.City</p>
+                <p><strong>Datum:</strong> @eventModel.Date.ToString("dd.MM.yyyy")</p>
+                <p><strong>Vrijeme:</strong> @eventModel.Time.ToString("hh\\:mm")</p>
+                <p><strong>Arena:</strong> @eventModel.Venue.Name</p>
+                <p><strong>Opis:</strong> @eventModel.Description</p>
+                <p><strong>Osnovna cijena:</strong> @eventModel.BaseTicketPrice.ToString("C")</p>
+                <p><strong>Prodano karata:</strong> @eventModel.TicketsSold</p>
+                <p><strong>Broj mečeva:</strong> @eventModel.Matches.Count</p>
+            </div>
+            <a class="btn" asp-controller="Event" asp-action="Details" asp-route-id="@eventModel.Id">Detalji</a>
+        </article>
+    }
+</div>

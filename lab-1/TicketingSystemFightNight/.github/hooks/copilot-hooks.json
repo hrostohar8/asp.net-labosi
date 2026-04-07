@@ -1,15 +1,63 @@
 {
   "hooks": {
-    "postChatResponse": [
+    "SessionStart": [
       {
         "type": "command",
-        "command": "powershell -Command \"$input | Add-Content -Path '.github/hooks/agent_log.txt'\""
+        "command": "powershell -Command \"$raw = ($input | Out-String).Trim(); if ([string]::IsNullOrWhiteSpace($raw)) { $raw = 'no-payload'; } $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; Add-Content -Path '.github/hooks/agent_log.txt' -Value ('[' + $ts + '] SESSION_START: ' + $raw) -Encoding UTF8; Add-Content -Path '.github/hooks/subagent_invocation_log.txt' -Value ('[' + $ts + '] SESSION_START: ' + $raw) -Encoding UTF8\""
       }
     ],
-    "postInlineCompletion": [
+    "sessionStart": [
       {
         "type": "command",
-        "command": "powershell -Command \"$input | Add-Content -Path '.github/hooks/agent_log.txt'\""
+        "command": "powershell -Command \"$raw = ($input | Out-String).Trim(); if ([string]::IsNullOrWhiteSpace($raw)) { $raw = 'no-payload'; } $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; Add-Content -Path '.github/hooks/agent_log.txt' -Value ('[' + $ts + '] SESSION_START: ' + $raw) -Encoding UTF8; Add-Content -Path '.github/hooks/subagent_invocation_log.txt' -Value ('[' + $ts + '] SESSION_START: ' + $raw) -Encoding UTF8\""
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "type": "command",
+        "command": "powershell -Command \"$raw = ($input | Out-String).Trim(); if ([string]::IsNullOrWhiteSpace($raw)) { $raw = 'no-payload'; } $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; Add-Content -Path '.github/hooks/agent_log.txt' -Value ('[' + $ts + '] USER_PROMPT_SUBMIT: ' + $raw) -Encoding UTF8; Add-Content -Path '.github/hooks/subagent_invocation_log.txt' -Value ('[' + $ts + '] USER_PROMPT_SUBMIT: ' + $raw) -Encoding UTF8\""
+      }
+    ],
+    "userPromptSubmit": [
+      {
+        "type": "command",
+        "command": "powershell -Command \"$raw = ($input | Out-String).Trim(); if ([string]::IsNullOrWhiteSpace($raw)) { $raw = 'no-payload'; } $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; Add-Content -Path '.github/hooks/agent_log.txt' -Value ('[' + $ts + '] USER_PROMPT_SUBMIT: ' + $raw) -Encoding UTF8; Add-Content -Path '.github/hooks/subagent_invocation_log.txt' -Value ('[' + $ts + '] USER_PROMPT_SUBMIT: ' + $raw) -Encoding UTF8\""
+      }
+    ],
+    "SubagentStart": [
+      {
+        "type": "command",
+        "command": "powershell -Command \"$raw = ($input | Out-String).Trim(); if ([string]::IsNullOrWhiteSpace($raw)) { $raw = 'no-payload'; } $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; Add-Content -Path '.github/hooks/agent_log.txt' -Value ('[' + $ts + '] SUBAGENT_START: ' + $raw) -Encoding UTF8; Add-Content -Path '.github/hooks/subagent_invocation_log.txt' -Value ('[' + $ts + '] SUBAGENT_START: ' + $raw) -Encoding UTF8\""
+      }
+    ],
+    "subagentStart": [
+      {
+        "type": "command",
+        "command": "powershell -Command \"$raw = ($input | Out-String).Trim(); if ([string]::IsNullOrWhiteSpace($raw)) { $raw = 'no-payload'; } $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; Add-Content -Path '.github/hooks/agent_log.txt' -Value ('[' + $ts + '] SUBAGENT_START: ' + $raw) -Encoding UTF8; Add-Content -Path '.github/hooks/subagent_invocation_log.txt' -Value ('[' + $ts + '] SUBAGENT_START: ' + $raw) -Encoding UTF8\""
+      }
+    ],
+    "SubagentStop": [
+      {
+        "type": "command",
+        "command": "powershell -Command \"$raw = ($input | Out-String).Trim(); if ([string]::IsNullOrWhiteSpace($raw)) { $raw = 'no-payload'; } $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; Add-Content -Path '.github/hooks/agent_log.txt' -Value ('[' + $ts + '] SUBAGENT_STOP: ' + $raw) -Encoding UTF8; Add-Content -Path '.github/hooks/subagent_invocation_log.txt' -Value ('[' + $ts + '] SUBAGENT_STOP: ' + $raw) -Encoding UTF8\""
+      }
+    ],
+    "subagentStop": [
+      {
+        "type": "command",
+        "command": "powershell -Command \"$raw = ($input | Out-String).Trim(); if ([string]::IsNullOrWhiteSpace($raw)) { $raw = 'no-payload'; } $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; Add-Content -Path '.github/hooks/agent_log.txt' -Value ('[' + $ts + '] SUBAGENT_STOP: ' + $raw) -Encoding UTF8; Add-Content -Path '.github/hooks/subagent_invocation_log.txt' -Value ('[' + $ts + '] SUBAGENT_STOP: ' + $raw) -Encoding UTF8\""
+      }
+    ],
+    "PostToolUse": [
+      {
+        "type": "command",
+        "command": "powershell -Command \"$raw = ($input | Out-String).Trim(); if ([string]::IsNullOrWhiteSpace($raw)) { $raw = 'no-payload'; } $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; Add-Content -Path '.github/hooks/agent_log.txt' -Value ('[' + $ts + '] POST_TOOL_USE: ' + $raw) -Encoding UTF8; Add-Content -Path '.github/hooks/subagent_invocation_log.txt' -Value ('[' + $ts + '] POST_TOOL_USE: ' + $raw) -Encoding UTF8\""
+      }
+    ],
+    "postToolUse": [
+      {
+        "type": "command",
+        "command": "powershell -Command \"$raw = ($input | Out-String).Trim(); if ([string]::IsNullOrWhiteSpace($raw)) { $raw = 'no-payload'; } $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; Add-Content -Path '.github/hooks/agent_log.txt' -Value ('[' + $ts + '] POST_TOOL_USE: ' + $raw) -Encoding UTF8; Add-Content -Path '.github/hooks/subagent_invocation_log.txt' -Value ('[' + $ts + '] POST_TOOL_USE: ' + $raw) -Encoding UTF8\""
       }
     ]
   }

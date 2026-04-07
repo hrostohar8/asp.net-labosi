@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model TicketingSystemFightNight.Models.Event
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <a asp-controller="Event" asp-action="Index">Događaji</a> /
+    <span>Detalji</span>
+</nav>
+
+<h2>Detalji - @Model.Name</h2>
+
+<div class="details-container">
+    <div class="detail-item">
+        <strong>Naziv:</strong>
+        <span>@Model.Name</span>
+    </div>
+    <div class="detail-item">
+        <strong>Organizacija:</strong>
+        <span>@Model.Organization</span>
+    </div>
+    <div class="detail-item">
+        <strong>Grad:</strong>
+        <span>@Model.City</span>
+    </div>
+    <div class="detail-item">
+        <strong>Datum:</strong>
+        <span>@Model.Date.ToString("dd.MM.yyyy")</span>
+    </div>
+    <div class="detail-item">
+        <strong>Vrijeme:</strong>
+        <span>@Model.Time.ToString("HH:mm")</span>
+    </div>
+    <div class="detail-item">
+        <strong>Arena:</strong>
+        <span>@Model.Venue.Name</span>
+    </div>
+    <div class="detail-item">
+        <strong>Opis:</strong>
+        <span>@Model.Description</span>
+    </div>
+    <div class="detail-item">
+        <strong>Osnovna cijena karte:</strong>
+        <span>@Model.BaseTicketPrice.ToString("C")</span>
+    </div>
+    <div class="detail-item">
+        <strong>Prodano karata:</strong>
+        <span>@Model.TicketsSold</span>
+    </div>
+
+    @if(Model.Matches != null && Model.Matches.Any())
+    {
+        <h3>Mečevi na ovom događaju</h3>
+        <ul>
+            @foreach(var match in Model.Matches)
+            {
+                <li>
+                    <a asp-controller="Match"
+                       asp-action="Details"
+                       asp-route-id="@match.Id">
+                        @match.Fighter1.Name vs @match.Fighter2.Name (@match.WeightClass)
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+<a asp-controller="Event" asp-action="Index">Povratak na listu događaja</a>

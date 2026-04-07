@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model TicketingSystemFightNight.Models.Ticket
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <a asp-controller="Ticket" asp-action="Index">Karte</a> /
+    <span>Detalji</span>
+</nav>
+
+<h2>Detalji - Karta @Model.Id</h2>
+
+<div class="details-container">
+    <div class="detail-item">
+        <strong>Događaj:</strong>
+        <span>@Model.Event.Name</span>
+    </div>
+    <div class="detail-item">
+        <strong>Sektor:</strong>
+        <span>@Model.Section</span>
+    </div>
+    <div class="detail-item">
+        <strong>Red:</strong>
+        <span>@Model.Row</span>
+    </div>
+    <div class="detail-item">
+        <strong>Sjedište:</strong>
+        <span>@Model.Seat</span>
+    </div>
+    <div class="detail-item">
+        <strong>Cijena:</strong>
+        <span>@Model.Price.ToString("C")</span>
+    </div>
+    <div class="detail-item">
+        <strong>Datum kupnje:</strong>
+        <span>@Model.PurchaseDate.ToString("dd.MM.yyyy HH:mm")</span>
+    </div>
+    <div class="detail-item">
+        <strong>VIP karta:</strong>
+        <span>@(Model.IsVip ? "Da" : "Ne")</span>
+    </div>
+</div>
+
+<a asp-controller="Ticket" asp-action="Index">Povratak na listu karata</a>

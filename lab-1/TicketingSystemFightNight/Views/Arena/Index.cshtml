@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model List<TicketingSystemFightNight.Models.Arena>
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <span>Arene</span>
+</nav>
+
+<h2>Pregled - Arene</h2>
+
+<div class="entity-grid">
+    @foreach (var arena in Model)
+    {
+        <article class="entity-card">
+            <h3>@arena.Name</h3>
+            <div class="entity-props">
+                <p><strong>Id:</strong> @arena.Id</p>
+                <p><strong>Grad:</strong> @arena.City</p>
+                <p><strong>Kapacitet:</strong> @arena.Capacity</p>
+                <p><strong>Adresa:</strong> @arena.Address</p>
+                <p><strong>Tip:</strong> @(arena.IsIndoor ? "Unutarnja" : "Vanjska")</p>
+                <p><strong>Otvorena:</strong> @arena.OpenedYear</p>
+            </div>
+            <a class="btn" asp-controller="Arena" asp-action="Details" asp-route-id="@arena.Id">Detalji</a>
+        </article>
+    }
+</div>

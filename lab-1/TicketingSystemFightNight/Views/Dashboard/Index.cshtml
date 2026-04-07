@@ -1,0 +1,109 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model TicketingSystemFightNight.Controllers.DashboardViewModel
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <span>Dashboard</span>
+</nav>
+
+<h1>Dashboard - Statistike sustava</h1>
+
+<div class="dashboard-stats">
+    <div class="stat-card">
+        <h3>@Model.TotalFighters</h3>
+        <p>Boraca</p>
+        <a asp-controller="Fighter" asp-action="Index">Pregled</a>
+    </div>
+
+    <div class="stat-card">
+        <h3>@Model.TotalEvents</h3>
+        <p>Događaja</p>
+        <a asp-controller="Event" asp-action="Index">Pregled</a>
+    </div>
+
+    <div class="stat-card">
+        <h3>@Model.TotalArenas</h3>
+        <p>Arena</p>
+        <a asp-controller="Arena" asp-action="Index">Pregled</a>
+    </div>
+
+    <div class="stat-card">
+        <h3>@Model.TotalMatches</h3>
+        <p>Mečeva</p>
+        <a asp-controller="Match" asp-action="Index">Pregled</a>
+    </div>
+
+    <div class="stat-card">
+        <h3>@Model.TotalTickets</h3>
+        <p>Karata</p>
+        <a asp-controller="Ticket" asp-action="Index">Pregled</a>
+    </div>
+
+    <div class="stat-card">
+        <h3>@Model.TotalUsers</h3>
+        <p>Korisnika</p>
+        <a asp-controller="User" asp-action="Index">Pregled</a>
+    </div>
+
+    <div class="stat-card">
+        <h3>@Model.TotalCarts</h3>
+        <p>Košarica</p>
+        <a asp-controller="Cart" asp-action="Index">Pregled</a>
+    </div>
+</div>
+
+<div class="dashboard-charts">
+    <div class="chart-section">
+        <h2>Borci po organizaciji</h2>
+        <ul class="organization-list">
+            @foreach(var org in Model.FightersByOrganization)
+            {
+                <li>@org.Organization: @org.Count boraca</li>
+            }
+        </ul>
+    </div>
+
+    <div class="chart-section">
+        <h2>Nadolazeći događaji</h2>
+        <ul class="event-list">
+            @foreach(var eventModel in Model.UpcomingEvents)
+            {
+                <li>
+                    <a asp-controller="Event" asp-action="Details" asp-route-id="@eventModel.Id">
+                        @eventModel.Name - @eventModel.Date.ToString("dd.MM.yyyy")
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="chart-section">
+        <h2>Top borci</h2>
+        <ul class="fighter-list">
+            @foreach(var fighter in Model.TopFighters)
+            {
+                <li>
+                    <a asp-controller="Fighter" asp-action="Details" asp-route-id="@fighter.Id">
+                        @fighter.Name (@fighter.Wins - @fighter.Losses pobjeda)
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="chart-section">
+        <h2>Nedavne karte</h2>
+        <ul class="ticket-list">
+            @foreach(var ticket in Model.RecentTickets)
+            {
+                <li>
+                    @ticket.Event.Name - @ticket.Section @ticket.Row@ticket.Seat
+                    <small>(@ticket.PurchaseDate.ToString("dd.MM.yyyy"))</small>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

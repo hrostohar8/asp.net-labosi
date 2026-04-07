@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model List<TicketingSystemFightNight.Models.Cart>
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <span>Košarice</span>
+</nav>
+
+<h2>Pregled - Košarice</h2>
+
+<div class="entity-grid">
+    @foreach (var cart in Model)
+    {
+        <article class="entity-card">
+            <h3>Košarica #@cart.Id</h3>
+            <div class="entity-props">
+                <p><strong>Id:</strong> @cart.Id</p>
+                <p><strong>Korisnik:</strong> @cart.User.Name</p>
+                <p><strong>Broj karata:</strong> @cart.Tickets.Count</p>
+                <p><strong>Kreirana:</strong> @cart.CreatedAt.ToString("dd.MM.yyyy HH:mm")</p>
+                <p><strong>Popust kod:</strong> @(string.IsNullOrWhiteSpace(cart.DiscountCode) ? "Nema" : cart.DiscountCode)</p>
+                <p><strong>Popust %:</strong> @cart.DiscountPercent</p>
+                <p><strong>Plaćeno:</strong> @(cart.IsPaid ? "Da" : "Ne")</p>
+                <p><strong>Ukupna cijena:</strong> @cart.TotalPrice.ToString("C")</p>
+            </div>
+            <a class="btn" asp-controller="Cart" asp-action="Details" asp-route-id="@cart.Id">Detalji</a>
+        </article>
+    }
+</div>

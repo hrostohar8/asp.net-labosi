@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<div class="hero">
+    <div class="hero-top">Upcoming Main Event</div>
+    <div class="hero-main">
+        <div class="hero-headline">
+            <h1>FNF 29</h1>
+            <p>Ljubljana Arena • 11.04.2026 • 19:00</p>
+        </div>
+
+        <div class="hero-meta">Veliki derbi večeri</div>
+
+        <div class="hero-fighters">
+            <div class="fighter-card">
+                <span>Matej Batinić</span>
+            </div>
+            <div class="fighter-vs">VS</div>
+            <div class="fighter-card">
+                <span>Jakob Nedoh</span>
+            </div>
+        </div>
+
+        <div class="hero-actions">
+            <a class="btn" asp-controller="Ticket" asp-action="Index">Kupi ulaznice</a>
+            <a class="btn btn-outline" asp-controller="Event" asp-action="Index">Pogledaj događaje</a>
+        </div>
+    </div>
+</div>
+
+<section class="dashboard" aria-label="Brzi pregled sekcija">
+    <div class="dashboard-item">
+        <h3>Borci</h3>
+        <p>Pregledajte sve borce po organizacijama.</p>
+        <a asp-controller="Fighter" asp-action="Index">Pregled boraca</a>
+    </div>
+
+    <div class="dashboard-item">
+        <h3>Događaji</h3>
+        <p>Pregledajte nadolazeće događaje.</p>
+        <a asp-controller="Event" asp-action="Index">Pregled događaja</a>
+    </div>
+
+    <div class="dashboard-item">
+        <h3>Arene</h3>
+        <p>Pregledajte sportske arene.</p>
+        <a asp-controller="Arena" asp-action="Index">Pregled arena</a>
+    </div>
+
+    <div class="dashboard-item">
+        <h3>Mečevi</h3>
+        <p>Pregledajte sve mečeve.</p>
+        <a asp-controller="Match" asp-action="Index">Pregled mečeva</a>
+    </div>
+
+    <div class="dashboard-item">
+        <h3>Karte</h3>
+        <p>Pregledajte dostupne karte.</p>
+        <a asp-controller="Ticket" asp-action="Index">Pregled karata</a>
+    </div>
+
+    <div class="dashboard-item">
+        <h3>Korisnici</h3>
+        <p>Pregledajte korisnike sustava.</p>
+        <a asp-controller="User" asp-action="Index">Pregled korisnika</a>
+    </div>
+
+    <div class="dashboard-item">
+        <h3>Košarice</h3>
+        <p>Pregledajte košarice korisnika.</p>
+        <a asp-controller="Cart" asp-action="Index">Pregled košarica</a>
+    </div>
+
+    <div class="dashboard-item">
+        <h3>Dashboard</h3>
+        <p>Pregledajte statistike i analize.</p>
+        <a asp-controller="Dashboard" asp-action="Index">Pregled statistika</a>
+    </div>
+</section>
