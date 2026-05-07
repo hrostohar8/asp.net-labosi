@@ -15,13 +15,8 @@
     "UserPromptSubmit": [
       {
         "type": "command",
-        "command": "powershell -Command \"$raw = ($input | Out-String).Trim(); if ([string]::IsNullOrWhiteSpace($raw)) { $raw = 'no-payload'; } $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; Add-Content -Path '.github/hooks/agent_log.txt' -Value ('[' + $ts + '] USER_PROMPT_SUBMIT: ' + $raw) -Encoding UTF8; Add-Content -Path '.github/hooks/subagent_invocation_log.txt' -Value ('[' + $ts + '] USER_PROMPT_SUBMIT: ' + $raw) -Encoding UTF8\""
-      }
-    ],
-    "userPromptSubmit": [
-      {
-        "type": "command",
-        "command": "powershell -Command \"$raw = ($input | Out-String).Trim(); if ([string]::IsNullOrWhiteSpace($raw)) { $raw = 'no-payload'; } $ts = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; Add-Content -Path '.github/hooks/agent_log.txt' -Value ('[' + $ts + '] USER_PROMPT_SUBMIT: ' + $raw) -Encoding UTF8; Add-Content -Path '.github/hooks/subagent_invocation_log.txt' -Value ('[' + $ts + '] USER_PROMPT_SUBMIT: ' + $raw) -Encoding UTF8\""
+        "command": "powershell -ExecutionPolicy Bypass -File .github/hooks/log-prompt.ps1",
+        "timeout": 5
       }
     ],
     "SubagentStart": [

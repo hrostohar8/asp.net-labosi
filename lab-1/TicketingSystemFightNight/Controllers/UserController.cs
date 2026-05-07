@@ -6,24 +6,24 @@ namespace TicketingSystemFightNight.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UserMockRepository _repository;
+        private readonly IRepository<User> _repository;
 
-        public UserController(UserMockRepository repository)
+        public UserController(IRepository<User> repository)
         {
             _repository = repository;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var users = _repository.GetAll();
+            var users = await _repository.GetAllAsync();
             return View(users);
         }
 
         [HttpGet]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var user = _repository.GetById(id);
+            var user = await _repository.GetByIdAsync(id);
             if (user == null)
                 return NotFound();
             return View(user);

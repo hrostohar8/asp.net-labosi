@@ -68,4 +68,7 @@
     }
 </div>
 
-<a asp-controller="Event" asp-action="Index">Povratak na listu događaja</a>
+<div class="details-actions">
+    <a class="btn" asp-controller="Event" asp-action="Edit" asp-route-id="@Model.Id">Uredi događaj</a>
+    <a class="btn" asp-controller="Event" asp-action="Index">Povratak na listu događaja</a>
+</div>

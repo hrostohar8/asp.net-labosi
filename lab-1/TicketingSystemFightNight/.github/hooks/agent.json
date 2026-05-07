@@ -1,9 +1,12 @@
 {
-  "github.copilot.chat.localeOverride": "en",
-  "github.copilot.chat.runCommand.enabled": true,
-  "github.copilot.chat.hooks": {
+  "$schema": "https://raw.githubusercontent.com/github/copilot-docs/main/docs/schemas/agent-hooks-schema.json",
+  "name": "Conversation Logger",
+  "description": "Automatically logs all user prompts and agent responses to agent_log.txt",
+  "version": "1.0.0",
+  "hooks": {
     "UserPromptSubmit": {
       "enabled": true,
+      "description": "Logs user prompts when submitted",
       "command": "powershell",
       "args": [
         "-ExecutionPolicy",
@@ -18,6 +21,7 @@
     },
     "PreToolUse": {
       "enabled": true,
+      "description": "Logs tool usage before tool execution",
       "command": "powershell",
       "args": [
         "-ExecutionPolicy",

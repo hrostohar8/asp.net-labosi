@@ -4,26 +4,28 @@ using TicketingSystemFightNight.Repositories;
 
 namespace TicketingSystemFightNight.Controllers
 {
+    [Route("borci")]
     public class FighterController : Controller
     {
-        private readonly FighterMockRepository _repository;
+        private readonly IRepository<Fighter> _repository;
 
-        public FighterController(FighterMockRepository repository)
+        public FighterController(IRepository<Fighter> repository)
         {
             _repository = repository;
         }
 
-        [HttpGet]
-        public IActionResult Index()
+        [HttpGet("")]
+        [HttpGet("svi")]
+        public async Task<IActionResult> Index()
         {
-            var fighters = _repository.GetAll();
+            var fighters = await _repository.GetAllAsync();
             return View(fighters);
         }
 
-        [HttpGet]
-        public IActionResult Details(int id)
+        [HttpGet("detalji/{id:int}")]
+        public async Task<IActionResult> Details(int id)
         {
-            var fighter = _repository.GetById(id);
+            var fighter = await _repository.GetByIdAsync(id);
             if (fighter == null)
                 return NotFound();
             return View(fighter);

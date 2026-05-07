@@ -6,24 +6,24 @@ namespace TicketingSystemFightNight.Controllers
 {
     public class ArenaController : Controller
     {
-        private readonly ArenaMockRepository _repository;
+        private readonly IRepository<Arena> _repository;
 
-        public ArenaController(ArenaMockRepository repository)
+        public ArenaController(IRepository<Arena> repository)
         {
             _repository = repository;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var arenas = _repository.GetAll();
+            var arenas = await _repository.GetAllAsync();
             return View(arenas);
         }
 
         [HttpGet]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var arena = _repository.GetById(id);
+            var arena = await _repository.GetByIdAsync(id);
             if (arena == null)
                 return NotFound();
             return View(arena);

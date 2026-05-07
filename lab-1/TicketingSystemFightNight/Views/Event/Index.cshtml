@@ -28,7 +28,10 @@
                 <p><strong>Prodano karata:</strong> @eventModel.TicketsSold</p>
                 <p><strong>Broj mečeva:</strong> @eventModel.Matches.Count</p>
             </div>
-            <a class="btn" asp-controller="Event" asp-action="Details" asp-route-id="@eventModel.Id">Detalji</a>
+            <div class="entity-actions">
+                <a class="btn" asp-controller="Event" asp-action="Details" asp-route-id="@eventModel.Id">Detalji</a>
+                <a class="btn" asp-controller="Event" asp-action="Edit" asp-route-id="@eventModel.Id">Uredi</a>
+            </div>
         </article>
     }
 </div>

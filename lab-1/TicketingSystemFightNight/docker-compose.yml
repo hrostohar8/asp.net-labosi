@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: ticketing-sql
+    ports:
+      - '1433:1433'
+    environment:
+      SA_PASSWORD: "yourStrong(!)Password"
+      ACCEPT_EULA: "Y"
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P \"yourStrong(!)Password\" -Q \"SELECT 1\""]
+      interval: 10s
+      timeout: 5s
+      retries: 10
