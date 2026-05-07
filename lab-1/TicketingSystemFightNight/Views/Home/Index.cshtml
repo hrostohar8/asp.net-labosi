@@ -1,24 +1,32 @@
-﻿@{
+﻿@model TicketingSystemFightNight.Models.HomeViewModel
+@{
     Layout = "_Layout";
+    var upcomingEvent = Model.UpcomingEvent;
+    var fighter1 = Model.Fighter1;
+    var fighter2 = Model.Fighter2;
+    var fighter1ImageUrl = Model.Fighter1ImageUrl ?? "/images/fighter-placeholder.svg";
+    var fighter2ImageUrl = Model.Fighter2ImageUrl ?? "/images/fighter-placeholder.svg";
 }
 
 <div class="hero">
     <div class="hero-top">Upcoming Main Event</div>
     <div class="hero-main">
         <div class="hero-headline">
-            <h1>FNF 29</h1>
-            <p>Ljubljana Arena • 11.04.2026 • 19:00</p>
+            <h1>@(upcomingEvent?.Name ?? "FNF 29")</h1>
+            <p>@(upcomingEvent != null ? $"{upcomingEvent.Venue.Name} • {upcomingEvent.Date:dd.MM.yyyy} • {upcomingEvent.Time:hh\\:mm}" : "Ljubljana Arena • 11.04.2026 • 19:00")</p>
         </div>
 
         <div class="hero-meta">Veliki derbi večeri</div>
 
         <div class="hero-fighters">
             <div class="fighter-card">
-                <span>Matej Batinić</span>
+                <img src="@fighter1ImageUrl" alt="@((fighter1?.Name ?? "Fighter 1"))" />
+                <span>@(fighter1?.Name ?? "Matej Batinić")</span>
             </div>
             <div class="fighter-vs">VS</div>
             <div class="fighter-card">
-                <span>Jakob Nedoh</span>
+                <img src="@fighter2ImageUrl" alt="@((fighter2?.Name ?? "Fighter 2"))" />
+                <span>@(fighter2?.Name ?? "Jakob Nedoh")</span>
             </div>
         </div>
 

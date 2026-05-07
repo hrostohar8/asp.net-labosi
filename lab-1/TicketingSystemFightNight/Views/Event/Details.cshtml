@@ -31,7 +31,7 @@
     </div>
     <div class="detail-item">
         <strong>Vrijeme:</strong>
-        <span>@Model.Time.ToString("HH:mm")</span>
+        <span>@Model.Time.ToString(@"hh\:mm")</span>
     </div>
     <div class="detail-item">
         <strong>Arena:</strong>
@@ -50,17 +50,17 @@
         <span>@Model.TicketsSold</span>
     </div>
 
-    @if(Model.Matches != null && Model.Matches.Any())
+    @if (Model.Matches != null && Model.Matches.Any())
     {
         <h3>Mečevi na ovom događaju</h3>
         <ul>
-            @foreach(var match in Model.Matches)
+            @foreach (var match in Model.Matches)
             {
                 <li>
                     <a asp-controller="Match"
                        asp-action="Details"
                        asp-route-id="@match.Id">
-                        @match.Fighter1.Name vs @match.Fighter2.Name (@match.WeightClass)
+                        @match.Fighter1?.Name vs @match.Fighter2?.Name (@match.WeightClass)
                     </a>
                 </li>
             }
@@ -69,6 +69,5 @@
 </div>
 
 <div class="details-actions">
-    <a class="btn" asp-controller="Event" asp-action="Edit" asp-route-id="@Model.Id">Uredi događaj</a>
     <a class="btn" asp-controller="Event" asp-action="Index">Povratak na listu događaja</a>
 </div>

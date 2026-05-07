@@ -39,7 +39,8 @@ namespace TicketingSystemFightNight.Data
             {
                 new Arena(1, "Arena Zagreb", "Zagreb", 15000, "Ulica Grada Vukovara 269a", true, 2008),
                 new Arena(2, "Arena Split", "Split", 12000, "Ulica Domovinskog rata 2", false, 2019),
-                new Arena(3, "Arena Rijeka", "Rijeka", 10000, "Trg Riječke rezolucije 2", true, 2014)
+                new Arena(3, "Arena Rijeka", "Rijeka", 10000, "Trg Riječke rezolucije 2", true, 2014),
+                new Arena(4, "Ljubljana Arena", "Ljubljana", 14000, "Štefanova cesta 6", true, 2002)
             };
 
             var fighters = new[]
@@ -49,21 +50,25 @@ namespace TicketingSystemFightNight.Data
                 new Fighter(3, "Alexander Gustafsson", "The Mauler", WeightClass.LightHeavyweight, FightOrganization.UFC, "Sweden", 18, 7),
                 new Fighter(4, "Daniel Cormier", "DC", WeightClass.LightHeavyweight, FightOrganization.UFC, "USA", 22, 3),
                 new Fighter(5, "Stipe Miocic", "The Croatian Sensation", WeightClass.Heavyweight, FightOrganization.UFC, "USA", 20, 4),
-                new Fighter(6, "Amanda Nunes", "The Lioness", WeightClass.Bantamweight, FightOrganization.UFC, "Brazil", 21, 5)
+                new Fighter(6, "Amanda Nunes", "The Lioness", WeightClass.Bantamweight, FightOrganization.UFC, "Brazil", 21, 5),
+                new Fighter(7, "Matej Batinić", "The Slovenian Storm", WeightClass.Middleweight, FightOrganization.FNC, "Slovenia", 18, 2),
+                new Fighter(8, "Jakob Nedoh", "The Ljubljana Lion", WeightClass.Middleweight, FightOrganization.FNC, "Slovenia", 17, 3)
             };
 
             var events = new[]
             {
                 new Event { Id = 1, Name = "UFC Fight Night Zagreb", Organization = FightOrganization.UFC, City = "Zagreb", Date = new DateTime(2024, 6, 15), Time = TimeSpan.FromHours(19), VenueId = 1, Description = "Main event: Jones vs Gustafsson", BaseTicketPrice = 250m, TicketsSold = 12850 },
                 new Event { Id = 2, Name = "UFC Fight Night Split", Organization = FightOrganization.UFC, City = "Split", Date = new DateTime(2024, 7, 20), Time = TimeSpan.FromHours(19), VenueId = 2, Description = "Main event: Ngannou vs Miocic", BaseTicketPrice = 180m, TicketsSold = 9800 },
-                new Event { Id = 3, Name = "UFC Fight Night Rijeka", Organization = FightOrganization.UFC, City = "Rijeka", Date = new DateTime(2024, 8, 10), Time = TimeSpan.FromHours(19), VenueId = 3, Description = "Main event: Cormier vs Gustafsson", BaseTicketPrice = 150m, TicketsSold = 7600 }
+                new Event { Id = 3, Name = "UFC Fight Night Rijeka", Organization = FightOrganization.UFC, City = "Rijeka", Date = new DateTime(2024, 8, 10), Time = TimeSpan.FromHours(19), VenueId = 3, Description = "Main event: Cormier vs Gustafsson", BaseTicketPrice = 150m, TicketsSold = 7600 },
+                new Event { Id = 4, Name = "FNF 29 Ljubljana", Organization = FightOrganization.FNC, City = "Ljubljana", Date = new DateTime(2026, 4, 11), Time = new TimeSpan(19, 0, 0), VenueId = 4, Description = "Main event: Batinić vs Nedoh", BaseTicketPrice = 220m, TicketsSold = 5600 }
             };
 
             var matches = new[]
             {
                 new Match { Id = 1, Fighter1Id = 1, Fighter2Id = 3, WeightClass = WeightClass.LightHeavyweight, EventId = 1, RoundLimit = 5, Championship = true, Referee = "Herb Dean", Status = "Scheduled" },
                 new Match { Id = 2, Fighter1Id = 2, Fighter2Id = 5, WeightClass = WeightClass.Heavyweight, EventId = 2, RoundLimit = 5, Championship = false, Referee = "John McCarthy", Status = "Scheduled" },
-                new Match { Id = 3, Fighter1Id = 4, Fighter2Id = 3, WeightClass = WeightClass.LightHeavyweight, EventId = 3, RoundLimit = 5, Championship = false, Referee = "Yves Lavigne", Status = "Scheduled" }
+                new Match { Id = 3, Fighter1Id = 4, Fighter2Id = 3, WeightClass = WeightClass.LightHeavyweight, EventId = 3, RoundLimit = 5, Championship = false, Referee = "Yves Lavigne", Status = "Scheduled" },
+                new Match { Id = 4, Fighter1Id = 7, Fighter2Id = 8, WeightClass = WeightClass.Middleweight, EventId = 4, RoundLimit = 5, Championship = false, Referee = "Slavko Kosanović", Status = "Scheduled" }
             };
 
             var users = new[]

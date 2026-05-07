@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TicketingSystemFightNight.Models
 {
@@ -14,6 +15,9 @@ namespace TicketingSystemFightNight.Models
         public string Country { get; set; } = null!;
         public int Wins { get; set; }
         public int Losses { get; set; }
+
+        [NotMapped]
+        public string ImageUrl { get; set; } = "/images/fighter-placeholder.svg";
 
         public virtual ICollection<Match> MatchesAsFighter1 { get; set; } = new List<Match>();
         public virtual ICollection<Match> MatchesAsFighter2 { get; set; } = new List<Match>();

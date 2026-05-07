@@ -19,6 +19,10 @@ builder.Services.AddDbContext<VjezbaDbContext>(options =>
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
+// Session support for dummy cart state in the ticket shop.
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
+
 // Register mock repositories for Home and Dashboard controllers to avoid DI failures.
 builder.Services.AddSingleton<ArenaMockRepository>();
 builder.Services.AddSingleton<FighterMockRepository>();
@@ -30,6 +34,7 @@ builder.Services.AddSingleton<CartMockRepository>();
 
 var app = builder.Build();
 
+app.UseSession();
 app.UseStaticFiles();
 
 app.MapControllerRoute(

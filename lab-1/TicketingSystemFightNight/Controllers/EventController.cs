@@ -31,7 +31,10 @@ namespace TicketingSystemFightNight.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var @event = await _repository.GetByIdAsync(id, query =>
-                query.Include(e => e.Venue).Include(e => e.Matches).Include(e => e.Tickets));
+                query.Include(e => e.Venue)
+                     .Include(e => e.Matches).ThenInclude(m => m.Fighter1)
+                     .Include(e => e.Matches).ThenInclude(m => m.Fighter2)
+                     .Include(e => e.Tickets));
             if (@event == null)
                 return NotFound();
             return View(@event);

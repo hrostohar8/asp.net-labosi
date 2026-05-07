@@ -15,6 +15,7 @@
     @foreach (var fighter in Model)
     {
         <article class="entity-card">
+            <img src="@fighter.ImageUrl" alt="@fighter.Name" class="entity-card-image" />
             <h3>@fighter.Name</h3>
             <div class="entity-props">
                 <p><strong>Id:</strong> @fighter.Id</p>

@@ -12,7 +12,9 @@
 
 <h2>Detalji - @Model.Name</h2>
 
-<div class="details-container">
+<div class="details-wrapper">
+    <img src="@Model.ImageUrl" alt="@Model.Name" class="fighter-detail-image" />
+    <div class="details-container">
     <div class="detail-item">
         <strong>Ime:</strong>
         <span>@Model.Name</span>

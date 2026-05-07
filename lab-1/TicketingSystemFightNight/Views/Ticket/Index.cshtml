@@ -2,31 +2,64 @@
     Layout = "_Layout";
 }
 
-@model List<TicketingSystemFightNight.Models.Ticket>
+@model TicketingSystemFightNight.Models.TicketShopViewModel
 
 <nav class="breadcrumbs">
     <a asp-controller="Home" asp-action="Index">Početna</a> /
     <span>Karte</span>
 </nav>
 
-<h2>Pregled - Karte</h2>
+<h2>Kupnja ulaznica</h2>
 
-<div class="entity-grid">
-    @foreach (var ticket in Model)
+@if (TempData["CartMessage"] != null)
+{
+    <div class="alert success">@TempData["CartMessage"]</div>
+}
+
+<div class="ticket-shop-grid">
+    @foreach (var offer in Model.Offers)
     {
-        <article class="entity-card">
-            <h3>Karta #@ticket.Id</h3>
-            <div class="entity-props">
-                <p><strong>Id:</strong> @ticket.Id</p>
-                <p><strong>Događaj:</strong> @ticket.Event.Name</p>
-                <p><strong>Sektor:</strong> @ticket.Section</p>
-                <p><strong>Red:</strong> @ticket.Row</p>
-                <p><strong>Sjedište:</strong> @ticket.Seat</p>
-                <p><strong>Cijena:</strong> @ticket.Price.ToString("C")</p>
-                <p><strong>Datum kupnje:</strong> @ticket.PurchaseDate.ToString("dd.MM.yyyy")</p>
-                <p><strong>VIP:</strong> @(ticket.IsVip ? "Da" : "Ne")</p>
+        <article class="ticket-offer-card">
+            <header>
+                <h3>@offer.Title</h3>
+                <span class="ticket-tag">@offer.EventName</span>
+            </header>
+            <p class="ticket-description">@offer.Description</p>
+            <ul class="ticket-specs">
+                <li><strong>Lokacija:</strong> @offer.Location</li>
+                <li><strong>Sektor:</strong> @offer.Section</li>
+                <li><strong>Red:</strong> @offer.Row</li>
+                <li><strong>Sjedište:</strong> @offer.Seat</li>
+                <li><strong>VIP:</strong> @(offer.IsVip ? "Da" : "Ne")</li>
+            </ul>
+            <div class="ticket-footer">
+                <strong class="ticket-price">@offer.PriceDisplay</strong>
+                <form asp-action="AddToCart" method="post" asp-antiforgery="true">
+                    <input type="hidden" name="offerId" value="@offer.Id" />
+                    <button type="submit" class="btn btn-primary">Dodaj u košaricu</button>
+                </form>
             </div>
-            <a class="btn" asp-controller="Ticket" asp-action="Details" asp-route-id="@ticket.Id">Detalji</a>
         </article>
     }
 </div>
+
+<section class="cart-summary">
+    <h3>Košarica</h3>
+    @if (Model.CartItems.Any())
+    {
+        <p>Ukupno stavki: <strong>@Model.CartCount</strong></p>
+        <ul>
+            @foreach (var item in Model.CartItems)
+            {
+                <li>
+                    <strong>@item.Title</strong> - @item.Section @item.Row@item.Seat, @item.PriceDisplay
+                </li>
+            }
+        </ul>
+        <p class="cart-total">Ukupno: <strong>@Model.CartTotal.ToString("C")</strong></p>
+    }
+    else
+    {
+        <p>Košarica je prazna. Dodajte kartu kako biste nastavili s kupnjom.</p>
+    }
+</section>
