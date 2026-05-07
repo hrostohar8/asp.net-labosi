@@ -5,6 +5,7 @@ using TicketingSystemFightNight.Repositories;
 
 namespace TicketingSystemFightNight.Controllers
 {
+    [Route("ulaznice")]
     public class TicketController : Controller
     {
         private readonly IRepository<Ticket> _repository;
@@ -14,7 +15,7 @@ namespace TicketingSystemFightNight.Controllers
             _repository = repository;
         }
 
-        [HttpGet]
+        [HttpGet("")]
         public async Task<IActionResult> Index()
         {
             var tickets = await _repository.GetAllAsync(query =>
@@ -22,7 +23,7 @@ namespace TicketingSystemFightNight.Controllers
             return View(tickets);
         }
 
-        [HttpGet]
+        [HttpGet("detalji/{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
             var ticket = await _repository.GetByIdAsync(id, query =>

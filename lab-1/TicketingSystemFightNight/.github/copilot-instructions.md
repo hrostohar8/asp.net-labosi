@@ -1,36 +1,28 @@
----
-name: "Log Conversation"
-description: "Automatically log both user prompts and assistant responses to agent_log.txt"
----
+﻿# Entity Framework Development Skill
 
-**MANDATORY: Log every user message and every assistant response**
+## When to Use
+Use this skill when working with Entity Framework models, migrations, or database operations in this ASP.NET MVC project.
 
-Before responding to ANY user message, you MUST log the user prompt and then log the agent response. Use the shared logging script:
+## Model Annotations
+- Always use [Key] on Id properties
+- Use [ForeignKey(" NavigationProperty\)] for foreign keys
+- Mark navigation properties as virtual for lazy loading
+- Use virtual ICollection<T> for one-to-many relationships
 
-```
-run_in_terminal command="powershell -ExecutionPolicy Bypass -File .github/hooks/log-conversation.ps1 -role USER -message \"$USER_MESSAGE\"" explanation="Log user message to conversation history" goal="Maintain conversation log"
-```
+## Migration Workflow
+1. Make changes to model classes
+2. Run: dotnet ef migrations add <MigrationName>
+3. Review generated migration in Migrations folder
+4. Apply: dotnet ef database update
 
-Then, after generating your answer, log it with:
+## Common EF Operations
+- Fetch with relationships: context.Entities.Include(e => e.Related).ToListAsync()
+- Fetch single: context.Entities.FindAsync(id)
+- Add: context.Entities.AddAsync(entity); await context.SaveChangesAsync()
+- Update: context.Entities.Update(entity); await context.SaveChangesAsync()
+- Delete: context.Entities.Remove(entity); await context.SaveChangesAsync()
 
-```
-run_in_terminal command="powershell -ExecutionPolicy Bypass -File .github/hooks/log-conversation.ps1 -role AGENT -message \"$AGENT_MESSAGE\"" explanation="Log agent response to conversation history" goal="Maintain conversation log"
-```
-
-All output is written to `agent_log.txt` in the project root.
-
-Replace `$USER_MESSAGE` with the exact user message and `$AGENT_MESSAGE` with the exact assistant response.
-
-**Format:**
-```
-[YYYY-MM-DD HH:mm:ss] USER: {exact_user_message}
-[YYYY-MM-DD HH:mm:ss] AGENT: {exact_agent_response}
-```
-
-**Example:**
-```
-[2026-05-05 14:30:22] USER: hocu da rjesimo problem automatskog loggiranja prije svega
-[2026-05-05 14:30:23] AGENT: U redu, sada logirat ću i svoje odgovore.
-```
-
-**CRITICAL:** This must happen BEFORE finishing any other response or action.
+## Database Context
+- VjezbaDbContext inherits from DbContext
+- All models registered as DbSet<T>
+- SQLite database: teh_lab.db
