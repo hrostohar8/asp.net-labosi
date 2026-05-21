@@ -1,0 +1,88 @@
+@model TicketingSystemFightNight.Models.ViewModels.MatchCreateViewModel
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    Layout = "_Layout";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <a asp-controller="Match" asp-action="Index">Mečevi</a> /
+    <span>Dodaj meč</span>
+</nav>
+
+<h2>Dodaj meč</h2>
+
+<div style="background:#111;padding:10px;margin-bottom:10px;color:#fff;font-size:13px;">
+    <strong>DEBUG:</strong>
+    <div>ViewBag.FighterList: @(ViewBag.FighterList != null ? "present" : "null")</div>
+    <div>ViewBag.FightersJson: @(ViewBag.FightersJson != null ? "present" : "null")</div>
+    <div>FightersJson raw: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.FightersJson ?? new object[]{}))</div>
+</div>
+
+<form asp-action="Create" method="post" class="enhanced">`r`n    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+    <div class="form-group">
+        @await Html.PartialAsync("_AutocompleteDropdown", new { fieldName = "Fighter1Id", fieldLabel = "Borac 1", ajaxUrl = Url.Action("SearchFighters", "Fighter"), placeholder = "Pretraži borce...", selectedId = (ViewBag.SelectedFighter1 != null ? (int?)ViewBag.SelectedFighter1.Id : null), selectedText = (ViewBag.SelectedFighter1 != null ? (string)ViewBag.SelectedFighter1.Text : ""), isRequired = true, extraParamName = "weightClassId", extraParamSelector = "select[name='WeightClassId']" })
+        <span asp-validation-for="Fighter1Id" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        @await Html.PartialAsync("_AutocompleteDropdown", new { fieldName = "Fighter2Id", fieldLabel = "Borac 2", ajaxUrl = Url.Action("SearchFighters", "Fighter"), placeholder = "Pretraži borce...", selectedId = (ViewBag.SelectedFighter2 != null ? (int?)ViewBag.SelectedFighter2.Id : null), selectedText = (ViewBag.SelectedFighter2 != null ? (string)ViewBag.SelectedFighter2.Text : ""), isRequired = true, extraParamName = "weightClassId", extraParamSelector = "select[name='WeightClassId']" })
+        <span asp-validation-for="Fighter2Id" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="WeightClassId"></label>
+        <select asp-for="WeightClassId" class="form-control" asp-items="ViewBag.WeightClasses"></select>
+        <span asp-validation-for="WeightClassId" class="text-danger"></span>
+    </div>
+
+    <div class="conditional-weight-details" style="display:none">
+        <div class="form-group">
+            <label>Notes for weight class</label>
+            <input class="form-control" name="WeightNotes" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @await Html.PartialAsync("_AutocompleteDropdown", new { fieldName = "EventId", fieldLabel = "Događaj", ajaxUrl = Url.Action("SearchEvents", "Event"), placeholder = "Pretraži događaje...", selectedId = (ViewBag.SelectedEvent != null ? (int?)ViewBag.SelectedEvent.Id : null), selectedText = (ViewBag.SelectedEvent != null ? (string)ViewBag.SelectedEvent.Text : ""), isRequired = true, extraParamName = (string)null, extraParamSelector = (string)null })
+        <span asp-validation-for="EventId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="RoundLimit"></label>
+        <input asp-for="RoundLimit" type="number" class="form-control" />
+        <span asp-validation-for="RoundLimit" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Championship"></label>
+        <input asp-for="Championship" type="checkbox" class="form-check-input" />
+        <span asp-validation-for="Championship" class="text-danger"></span>
+    </div>
+
+    <div class="conditional-championship" style="display:none">
+        <div class="form-group">
+            <label>Championship Round (if applicable)</label>
+            <input type="number" name="ChampionshipRound" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Referee"></label>
+        <input asp-for="Referee" class="form-control" />
+        <span asp-validation-for="Referee" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Status"></label>
+        <input asp-for="Status" class="form-control" />
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn">Spremi</button>
+    <a asp-controller="Match" asp-action="Index" class="btn">Odustani</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -10,8 +10,14 @@
 </nav>
 
 <h2>Pregled - Borci</h2>
+<a asp-controller="Fighter" asp-action="Create" class="btn">Dodaj borca</a>
 
-<div class="entity-grid">
+<div class="table-filter-wrap">
+    <div class="table-filter-controls">
+        <input type="search" class="table-search" placeholder="Pretraži borce..." aria-label="Pretraži borce" />
+        <span class="table-results-counter">0 results found</span>
+    </div>
+    <div class="entity-grid">
     @foreach (var fighter in Model)
     {
         <article class="entity-card">
@@ -20,13 +26,24 @@
             <div class="entity-props">
                 <p><strong>Id:</strong> @fighter.Id</p>
                 <p><strong>Nadimak:</strong> @fighter.Nickname</p>
-                <p><strong>Težinska klasa:</strong> @fighter.WeightClass</p>
-                <p><strong>Organizacija:</strong> @fighter.Organization</p>
+                <p><strong>Težinska klasa:</strong> @fighter.WeightClass?.Name</p>
+                <p><strong>Organizacija:</strong> @fighter.Organization?.Name</p>
                 <p><strong>Država:</strong> @fighter.Country</p>
                 <p><strong>Pobjede:</strong> @fighter.Wins</p>
                 <p><strong>Porazi:</strong> @fighter.Losses</p>
             </div>
-            <a class="btn" asp-controller="Fighter" asp-action="Details" asp-route-id="@fighter.Id">Detalji</a>
+            <div class="entity-actions">
+                <a class="btn" asp-controller="Fighter" asp-action="Details" asp-route-id="@fighter.Id">Detalji</a>
+                <a class="btn" asp-controller="Fighter" asp-action="Edit" asp-route-id="@fighter.Id">Uredi</a>
+                <form asp-controller="Fighter" asp-action="Delete" asp-route-id="@fighter.Id" method="post" class="inline-form" onsubmit="return confirm('Jeste li sigurni da želite obrisati ovog borca?');">
+                    <button type="submit" class="btn btn-danger">Obriši</button>
+                </form>
+            </div>
         </article>
     }
+    </div>
 </div>
+
+@section Scripts{
+    <script src="~/js/table-filter.js"></script>
+}

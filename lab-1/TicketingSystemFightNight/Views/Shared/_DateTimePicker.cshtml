@@ -1,0 +1,80 @@
+@model dynamic
+@functions {
+    private T GetModelValue<T>(dynamic model, string propertyName, T defaultValue)
+    {
+        if (model == null)
+        {
+            return defaultValue;
+        }
+        var obj = (object)model;
+        var property = obj.GetType().GetProperty(propertyName);
+        if (property == null)
+        {
+            return defaultValue;
+        }
+        var value = property.GetValue(obj);
+        if (value == null)
+        {
+            return defaultValue;
+        }
+        return (T)value;
+    }
+}
+@{
+    string fieldName = GetModelValue(Model, "fieldName", "DateTime");
+    string fieldLabel = GetModelValue(Model, "fieldLabel", fieldName);
+    bool isRequired = GetModelValue(Model, "isRequired", true);
+    bool includeTime = GetModelValue(Model, "includeTime", true);
+    string format = GetModelValue(Model, "format", string.Empty);
+    string timeFieldName = GetModelValue(Model, "timeFieldName", string.Empty);
+    if (includeTime && string.IsNullOrWhiteSpace(timeFieldName) && fieldName.Equals("Date", StringComparison.OrdinalIgnoreCase))
+    {
+        timeFieldName = "Time";
+    }
+
+    DateTime? value = GetModelValue(Model, "value", (DateTime?)null);
+    if (value.HasValue && value.Value.Year <= 1)
+    {
+        value = null;
+    }
+
+    string hiddenId = fieldName + "_hidden";
+    string visibleId = fieldName + "_display";
+    string isoValue = value.HasValue ? value.Value.ToString("yyyy-MM-ddTHH:mm:ss") : string.Empty;
+    string timeValue = value.HasValue ? value.Value.ToString("HH:mm:ss") : string.Empty;
+    string displayValue = value.HasValue ? value.Value.ToString(includeTime ? "dd.MM.yyyy HH:mm" : "dd.MM.yyyy") : string.Empty;
+}
+
+<div class="datetime-picker-wrapper" data-datetime-picker="true" data-field-name="@fieldName" data-include-time="@includeTime.ToString().ToLower()" data-format="@format" data-time-field-name="@timeFieldName">
+    <label class="datetime-picker-label" for="@visibleId">
+        @fieldLabel @if (isRequired) { <span class="required-indicator" aria-hidden="true">*</span> }
+    </label>
+    <div class="datetime-picker-control">
+        <input type="hidden" id="@hiddenId" name="@fieldName" value="@isoValue" />
+        @if (includeTime && !string.IsNullOrWhiteSpace(timeFieldName))
+        {
+            <input type="hidden" name="@timeFieldName" value="@timeValue" class="datetime-picker-hidden-time" />
+        }
+        <input type="text" id="@visibleId" class="form-control datetime-picker-input" autocomplete="off" readonly aria-haspopup="dialog" aria-expanded="false" aria-controls="@visibleId-popup" value="@displayValue" placeholder="Odaberite datum" />
+        <button type="button" class="datetime-picker-toggle" aria-label="Open date picker" tabindex="-1"></button>
+    </div>
+    <span class="text-danger field-validation-valid" data-valmsg-for="@fieldName" data-valmsg-replace="true"></span>
+
+    <div class="datetime-picker-popup" id="@visibleId-popup" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="picker-header">
+            <button type="button" class="picker-nav picker-prev" aria-label="Previous month">‹</button>
+            <div class="picker-head">
+                <select class="picker-month-select" aria-label="Month"></select>
+                <select class="picker-year-select" aria-label="Year"></select>
+            </div>
+            <button type="button" class="picker-nav picker-next" aria-label="Next month">›</button>
+        </div>
+        <div class="picker-weekdays" role="row"></div>
+        <div class="picker-calendar" role="grid"></div>
+        <div class="picker-time" aria-label="Time selection"></div>
+        <div class="picker-actions">
+            <button type="button" class="picker-action picker-today">Today</button>
+            <button type="button" class="picker-action picker-clear">Clear</button>
+        </div>
+    </div>
+</div>

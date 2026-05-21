@@ -1,0 +1,34 @@
+@model dynamic
+@{
+    var fieldName = Model.fieldName as string ?? "";
+    var fieldLabel = Model.fieldLabel as string ?? fieldName;
+    var ajaxUrl = Model.ajaxUrl as string ?? "";
+    var placeholder = Model.placeholder as string ?? "Pretraži...";
+    var selectedId = Model.selectedId as int?;
+    var selectedText = Model.selectedText as string ?? "";
+    var isRequired = Model.isRequired as bool? ?? false;
+    string extraParamName = null;
+    string extraParamSelector = null;
+    if (Model != null)
+    {
+        try { extraParamName = Model.extraParamName as string; } catch { }
+        try { extraParamSelector = Model.extraParamSelector as string; } catch { }
+    }
+    var uid = Guid.NewGuid().ToString("N");
+    var textId = fieldName + "_text_" + uid;
+    var hiddenId = fieldName + "_id_" + uid;
+    var extraAttributes = "";
+    if (extraParamName != null) extraAttributes += $" data-extra-param-name=\"{extraParamName}\"";
+    if (extraParamSelector != null) extraAttributes += $" data-extra-param-selector=\"{extraParamSelector}\"";
+}
+
+<div class="form-group autocomplete-dropdown" data-ajax-url="@ajaxUrl" data-field-name="@fieldName"@Html.Raw(extraAttributes)>
+    <label for="@textId">@fieldLabel</label>
+    <div class="autocomplete-input-group">
+        <input type="text" id="@textId" class="form-control autocomplete-text" placeholder="@placeholder" value="@selectedText" autocomplete="off" @(isRequired ? "required" : "") />
+        <button type="button" class="btn btn-sm btn-clear" title="Clear">×</button>
+    </div>
+    <input type="hidden" id="@hiddenId" name="@fieldName" class="autocomplete-hidden" value="@(selectedId?.ToString() ?? "")" />
+    <div class="autocomplete-dropdown-list" aria-hidden="true"></div>
+    <div class="invalid-feedback autocomplete-error" style="display:none;"></div>
+</div>

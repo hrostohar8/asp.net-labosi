@@ -1,0 +1,69 @@
+@model TicketingSystemFightNight.Models.ViewModels.EventCreateViewModel
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    Layout = "_Layout";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <a asp-controller="Event" asp-action="Index">Događaji</a> /
+    <span>Dodaj događaj</span>
+</nav>
+
+<h2>Dodaj događaj</h2>
+
+<form asp-action="Create" method="post" class="enhanced">`r`n    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="OrganizationId"></label>
+        <select asp-for="OrganizationId" class="form-control" asp-items="ViewBag.OrganizationList"></select>
+        <span asp-validation-for="OrganizationId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="City"></label>
+        <input asp-for="City" class="form-control" />
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        @await Html.PartialAsync("_DateTimePicker", new { fieldName = "Date", fieldLabel = "Datum i vrijeme", value = (Model != null && Model.Date.Year > 1 ? (DateTime?)Model.Date.Add(Model.Time) : null), isRequired = true, includeTime = true, timeFieldName = "Time" })
+        <span asp-validation-for="Time" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="VenueId"></label>
+        @await Html.PartialAsync("_AutocompleteDropdown", new { fieldName = "VenueId", fieldLabel = "Arena", ajaxUrl = Url.Action("SearchArenas", "Arena"), placeholder = "Pretraži arene...", selectedId = (ViewBag.SelectedVenue != null ? (int?)ViewBag.SelectedVenue.Id : null), selectedText = (ViewBag.SelectedVenue != null ? (string)ViewBag.SelectedVenue.Text : ""), isRequired = true })
+        <span asp-validation-for="VenueId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" maxlength="500"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BaseTicketPrice"></label>
+        <input asp-for="BaseTicketPrice" type="number" step="0.01" class="form-control" data-currency="true" />
+        <span asp-validation-for="BaseTicketPrice" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TicketsSold"></label>
+        <input asp-for="TicketsSold" type="number" class="form-control" />
+        <span asp-validation-for="TicketsSold" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn">Spremi</button>
+    <a asp-controller="Event" asp-action="Index" class="btn">Odustani</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

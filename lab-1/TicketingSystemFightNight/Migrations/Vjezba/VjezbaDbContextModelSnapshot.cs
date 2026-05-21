@@ -34,6 +34,12 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("IsIndoor")
                         .HasColumnType("INTEGER");
 
@@ -43,6 +49,9 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
 
                     b.Property<int>("OpenedYear")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -55,6 +64,7 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                             Address = "Ulica Grada Vukovara 269a",
                             Capacity = 15000,
                             City = "Zagreb",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8206),
                             IsIndoor = true,
                             Name = "Arena Zagreb",
                             OpenedYear = 2008
@@ -65,6 +75,7 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                             Address = "Ulica Domovinskog rata 2",
                             Capacity = 12000,
                             City = "Split",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8210),
                             IsIndoor = false,
                             Name = "Arena Split",
                             OpenedYear = 2019
@@ -75,6 +86,7 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                             Address = "Trg Riječke rezolucije 2",
                             Capacity = 10000,
                             City = "Rijeka",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8213),
                             IsIndoor = true,
                             Name = "Arena Rijeka",
                             OpenedYear = 2014
@@ -85,6 +97,7 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                             Address = "Štefanova cesta 6",
                             Capacity = 14000,
                             City = "Ljubljana",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8216),
                             IsIndoor = true,
                             Name = "Ljubljana Arena",
                             OpenedYear = 2002
@@ -100,6 +113,9 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("DiscountCode")
                         .HasColumnType("TEXT");
 
@@ -108,6 +124,9 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
 
                     b.Property<bool>("IsPaid")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
@@ -132,7 +151,13 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -143,7 +168,7 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Organization")
+                    b.Property<int>("OrganizationId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("TicketsSold")
@@ -152,10 +177,15 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                     b.Property<TimeSpan>("Time")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("VenueId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
 
                     b.HasIndex("VenueId");
 
@@ -167,10 +197,11 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                             Id = 1,
                             BaseTicketPrice = 250m,
                             City = "Zagreb",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8263),
                             Date = new DateTime(2024, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Main event: Jones vs Gustafsson",
                             Name = "UFC Fight Night Zagreb",
-                            Organization = 0,
+                            OrganizationId = 1,
                             TicketsSold = 12850,
                             Time = new TimeSpan(0, 19, 0, 0, 0),
                             VenueId = 1
@@ -180,10 +211,11 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                             Id = 2,
                             BaseTicketPrice = 180m,
                             City = "Split",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8286),
                             Date = new DateTime(2024, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Main event: Ngannou vs Miocic",
                             Name = "UFC Fight Night Split",
-                            Organization = 0,
+                            OrganizationId = 1,
                             TicketsSold = 9800,
                             Time = new TimeSpan(0, 19, 0, 0, 0),
                             VenueId = 2
@@ -193,10 +225,11 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                             Id = 3,
                             BaseTicketPrice = 150m,
                             City = "Rijeka",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8292),
                             Date = new DateTime(2024, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Main event: Cormier vs Gustafsson",
                             Name = "UFC Fight Night Rijeka",
-                            Organization = 0,
+                            OrganizationId = 1,
                             TicketsSold = 7600,
                             Time = new TimeSpan(0, 19, 0, 0, 0),
                             VenueId = 3
@@ -206,13 +239,70 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                             Id = 4,
                             BaseTicketPrice = 220m,
                             City = "Ljubljana",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8298),
                             Date = new DateTime(2026, 4, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Main event: Batinić vs Nedoh",
                             Name = "FNF 29 Ljubljana",
-                            Organization = 2,
+                            OrganizationId = 3,
                             TicketsSold = 5600,
                             Time = new TimeSpan(0, 19, 0, 0, 0),
                             VenueId = 4
+                        });
+                });
+
+            modelBuilder.Entity("TicketingSystemFightNight.Models.FightOrganization", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FightOrganizations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8147),
+                            Name = "UFC"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8157),
+                            Name = "KSW"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8160),
+                            Name = "FNC"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8162),
+                            Name = "BELLATOR"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8166),
+                            Name = "ONE FC"
                         });
                 });
 
@@ -226,6 +316,12 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Losses")
                         .HasColumnType("INTEGER");
 
@@ -237,16 +333,23 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Organization")
+                    b.Property<int>("OrganizationId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("WeightClass")
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("WeightClassId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Wins")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("WeightClassId");
 
                     b.ToTable("Fighters");
 
@@ -255,88 +358,96 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                         {
                             Id = 1,
                             Country = "USA",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8220),
                             Losses = 1,
                             Name = "Jon Jones",
                             Nickname = "Bones",
-                            Organization = 0,
-                            WeightClass = 6,
+                            OrganizationId = 1,
+                            WeightClassId = 7,
                             Wins = 26
                         },
                         new
                         {
                             Id = 2,
                             Country = "Cameroon",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8229),
                             Losses = 3,
                             Name = "Francis Ngannou",
                             Nickname = "The Predator",
-                            Organization = 0,
-                            WeightClass = 7,
+                            OrganizationId = 1,
+                            WeightClassId = 8,
                             Wins = 16
                         },
                         new
                         {
                             Id = 3,
                             Country = "Sweden",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8234),
                             Losses = 7,
                             Name = "Alexander Gustafsson",
                             Nickname = "The Mauler",
-                            Organization = 0,
-                            WeightClass = 6,
+                            OrganizationId = 1,
+                            WeightClassId = 7,
                             Wins = 18
                         },
                         new
                         {
                             Id = 4,
                             Country = "USA",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8238),
                             Losses = 3,
                             Name = "Daniel Cormier",
                             Nickname = "DC",
-                            Organization = 0,
-                            WeightClass = 6,
+                            OrganizationId = 1,
+                            WeightClassId = 7,
                             Wins = 22
                         },
                         new
                         {
                             Id = 5,
                             Country = "USA",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8242),
                             Losses = 4,
                             Name = "Stipe Miocic",
                             Nickname = "The Croatian Sensation",
-                            Organization = 0,
-                            WeightClass = 7,
+                            OrganizationId = 1,
+                            WeightClassId = 8,
                             Wins = 20
                         },
                         new
                         {
                             Id = 6,
                             Country = "Brazil",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8246),
                             Losses = 5,
                             Name = "Amanda Nunes",
                             Nickname = "The Lioness",
-                            Organization = 0,
-                            WeightClass = 1,
+                            OrganizationId = 1,
+                            WeightClassId = 2,
                             Wins = 21
                         },
                         new
                         {
                             Id = 7,
                             Country = "Slovenia",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8250),
                             Losses = 2,
                             Name = "Matej Batinić",
                             Nickname = "The Slovenian Storm",
-                            Organization = 2,
-                            WeightClass = 5,
+                            OrganizationId = 3,
+                            WeightClassId = 6,
                             Wins = 18
                         },
                         new
                         {
                             Id = 8,
                             Country = "Slovenia",
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8254),
                             Losses = 3,
                             Name = "Jakob Nedoh",
                             Nickname = "The Ljubljana Lion",
-                            Organization = 2,
-                            WeightClass = 5,
+                            OrganizationId = 3,
+                            WeightClassId = 6,
                             Wins = 17
                         });
                 });
@@ -349,6 +460,12 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
 
                     b.Property<bool>("Championship")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("EventId")
                         .HasColumnType("INTEGER");
@@ -370,7 +487,10 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("WeightClass")
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("WeightClassId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -381,6 +501,8 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
 
                     b.HasIndex("Fighter2Id");
 
+                    b.HasIndex("WeightClassId");
+
                     b.ToTable("Matches");
 
                     b.HasData(
@@ -388,49 +510,53 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                         {
                             Id = 1,
                             Championship = true,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8306),
                             EventId = 1,
                             Fighter1Id = 1,
                             Fighter2Id = 3,
                             Referee = "Herb Dean",
                             RoundLimit = 5,
                             Status = "Scheduled",
-                            WeightClass = 6
+                            WeightClassId = 7
                         },
                         new
                         {
                             Id = 2,
                             Championship = false,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8319),
                             EventId = 2,
                             Fighter1Id = 2,
                             Fighter2Id = 5,
                             Referee = "John McCarthy",
                             RoundLimit = 5,
                             Status = "Scheduled",
-                            WeightClass = 7
+                            WeightClassId = 8
                         },
                         new
                         {
                             Id = 3,
                             Championship = false,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8324),
                             EventId = 3,
                             Fighter1Id = 4,
                             Fighter2Id = 3,
                             Referee = "Yves Lavigne",
                             RoundLimit = 5,
                             Status = "Scheduled",
-                            WeightClass = 6
+                            WeightClassId = 7
                         },
                         new
                         {
                             Id = 4,
                             Championship = false,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8328),
                             EventId = 4,
                             Fighter1Id = 7,
                             Fighter2Id = 8,
                             Referee = "Slavko Kosanović",
                             RoundLimit = 5,
                             Status = "Scheduled",
-                            WeightClass = 5
+                            WeightClassId = 6
                         });
                 });
 
@@ -442,6 +568,12 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
 
                     b.Property<int?>("CartId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("EventId")
                         .HasColumnType("INTEGER");
@@ -466,6 +598,9 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CartId");
@@ -475,6 +610,59 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                     b.ToTable("Tickets");
                 });
 
+            modelBuilder.Entity("TicketingSystemFightNight.Models.TicketShopModels", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EventName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsVip")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Row")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Seat")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Section")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TicketShopModels");
+                });
+
             modelBuilder.Entity("TicketingSystemFightNight.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -482,6 +670,12 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("BirthDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -506,6 +700,9 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -515,6 +712,7 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                         {
                             Id = 1,
                             BirthDate = new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8337),
                             Email = "admin@example.com",
                             IsVip = true,
                             LoyaltyPoints = 150,
@@ -526,12 +724,87 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                         {
                             Id = 2,
                             BirthDate = new DateTime(1988, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8347),
                             Email = "john.doe@example.com",
                             IsVip = false,
                             LoyaltyPoints = 200,
                             MemberLevel = "Regular User",
                             Name = "john_doe",
                             Phone = "+385912345678"
+                        });
+                });
+
+            modelBuilder.Entity("TicketingSystemFightNight.Models.WeightClass", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WeightClasses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8174),
+                            Name = "Flyweight"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8180),
+                            Name = "Bantamweight"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8182),
+                            Name = "Featherweight"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8185),
+                            Name = "Lightweight"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8187),
+                            Name = "Welterweight"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8190),
+                            Name = "Middleweight"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8192),
+                            Name = "LightHeavyweight"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedAt = new DateTime(2026, 5, 18, 10, 30, 29, 709, DateTimeKind.Utc).AddTicks(8195),
+                            Name = "Heavyweight"
                         });
                 });
 
@@ -548,13 +821,40 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
 
             modelBuilder.Entity("TicketingSystemFightNight.Models.Event", b =>
                 {
+                    b.HasOne("TicketingSystemFightNight.Models.FightOrganization", "Organization")
+                        .WithMany("Events")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TicketingSystemFightNight.Models.Arena", "Venue")
                         .WithMany("Events")
                         .HasForeignKey("VenueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Organization");
+
                     b.Navigation("Venue");
+                });
+
+            modelBuilder.Entity("TicketingSystemFightNight.Models.Fighter", b =>
+                {
+                    b.HasOne("TicketingSystemFightNight.Models.FightOrganization", "Organization")
+                        .WithMany("Fighters")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TicketingSystemFightNight.Models.WeightClass", "WeightClass")
+                        .WithMany("Fighters")
+                        .HasForeignKey("WeightClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organization");
+
+                    b.Navigation("WeightClass");
                 });
 
             modelBuilder.Entity("TicketingSystemFightNight.Models.Match", b =>
@@ -577,11 +877,19 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("TicketingSystemFightNight.Models.WeightClass", "WeightClass")
+                        .WithMany("Matches")
+                        .HasForeignKey("WeightClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Event");
 
                     b.Navigation("Fighter1");
 
                     b.Navigation("Fighter2");
+
+                    b.Navigation("WeightClass");
                 });
 
             modelBuilder.Entity("TicketingSystemFightNight.Models.Ticket", b =>
@@ -618,6 +926,13 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
                     b.Navigation("Tickets");
                 });
 
+            modelBuilder.Entity("TicketingSystemFightNight.Models.FightOrganization", b =>
+                {
+                    b.Navigation("Events");
+
+                    b.Navigation("Fighters");
+                });
+
             modelBuilder.Entity("TicketingSystemFightNight.Models.Fighter", b =>
                 {
                     b.Navigation("MatchesAsFighter1");
@@ -628,6 +943,13 @@ namespace TicketingSystemFightNight.Migrations.Vjezba
             modelBuilder.Entity("TicketingSystemFightNight.Models.User", b =>
                 {
                     b.Navigation("Carts");
+                });
+
+            modelBuilder.Entity("TicketingSystemFightNight.Models.WeightClass", b =>
+                {
+                    b.Navigation("Fighters");
+
+                    b.Navigation("Matches");
                 });
 #pragma warning restore 612, 618
         }

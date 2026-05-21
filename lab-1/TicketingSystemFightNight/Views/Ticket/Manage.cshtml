@@ -1,0 +1,48 @@
+@model List<TicketingSystemFightNight.Models.Ticket>
+@{
+    Layout = "_Layout";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <a asp-controller="Ticket" asp-action="Index">Karte</a> /
+    <span>Upravljanje kartama</span>
+</nav>
+
+<h2>Upravljanje kartama</h2>
+
+<a asp-action="Create" class="btn">Dodaj kartu</a>
+
+<table class="entity-table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Događaj</th>
+            <th>Sjedalo</th>
+            <th>Cijena</th>
+            <th>VIP</th>
+            <th>Datum kupnje</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ticket in Model)
+        {
+            <tr>
+                <td>@ticket.Id</td>
+                <td>@ticket.Event?.Name</td>
+                <td>@ticket.Section #@ticket.Row @ticket.Seat</td>
+                <td>@ticket.Price.ToString("C")</td>
+                <td>@(ticket.IsVip ? "Da" : "Ne")</td>
+                <td>@ticket.PurchaseDate.ToString("dd.MM.yyyy")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@ticket.Id" class="btn">Detalji</a>
+                    <a asp-action="Edit" asp-route-id="@ticket.Id" class="btn">Uredi</a>
+                    <form asp-action="Delete" asp-route-id="@ticket.Id" method="post" class="inline-form" onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu kartu?');">
+                        <button type="submit" class="btn btn-danger">Obriši</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

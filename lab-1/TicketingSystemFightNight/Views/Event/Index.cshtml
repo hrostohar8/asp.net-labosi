@@ -10,8 +10,14 @@
 </nav>
 
 <h2>Pregled - Događaji</h2>
+<a asp-controller="Event" asp-action="Create" class="btn">Dodaj događaj</a>
 
-<div class="entity-grid">
+<div class="table-filter-wrap">
+    <div class="table-filter-controls">
+        <input type="search" class="table-search" placeholder="Pretraži događaje..." aria-label="Pretraži događaje" />
+        <span class="table-results-counter">0 results found</span>
+    </div>
+    <div class="entity-grid">
     @foreach (var eventModel in Model)
     {
         <article class="entity-card">
@@ -31,7 +37,15 @@
             <div class="entity-actions">
                 <a class="btn" asp-controller="Event" asp-action="Details" asp-route-id="@eventModel.Id">Detalji</a>
                 <a class="btn" asp-controller="Event" asp-action="Edit" asp-route-id="@eventModel.Id">Uredi</a>
+                <form asp-controller="Event" asp-action="Delete" asp-route-id="@eventModel.Id" method="post" class="inline-form" onsubmit="return confirm('Jeste li sigurni da želite obrisati ovaj događaj?');">
+                    <button type="submit" class="btn btn-danger">Obriši</button>
+                </form>
             </div>
         </article>
     }
+    </div>
 </div>
+
+@section Scripts{
+    <script src="~/js/table-filter.js"></script>
+}

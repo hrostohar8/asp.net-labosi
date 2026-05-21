@@ -1,0 +1,19 @@
+@model object
+
+@{
+    var modelType = Model.GetType();
+    var nameProperty = modelType.GetProperty("Name");
+    var nameValue = nameProperty?.GetValue(Model)?.ToString() ?? string.Empty;
+    var idProperty = modelType.GetProperty("Id");
+}
+
+@if (idProperty != null)
+{
+    <input type="hidden" name="Id" value="@idProperty.GetValue(Model)" />
+}
+
+<div class="mb-3">
+    <label for="Name" class="form-label">Naziv</label>
+    <input type="text" id="Name" name="Name" value="@nameValue" class="form-control" />
+    <span class="text-danger">@Html.ValidationMessage("Name")</span>
+</div>

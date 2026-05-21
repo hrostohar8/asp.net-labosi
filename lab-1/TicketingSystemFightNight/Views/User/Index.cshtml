@@ -10,6 +10,7 @@
 </nav>
 
 <h2>Pregled - Korisnici</h2>
+<a asp-controller="User" asp-action="Create" class="btn">Dodaj korisnika</a>
 
 <div class="entity-grid">
     @foreach (var user in Model)
@@ -25,7 +26,13 @@
                 <p><strong>VIP:</strong> @(user.IsVip ? "Da" : "Ne")</p>
                 <p><strong>Razina:</strong> @user.MemberLevel</p>
             </div>
-            <a class="btn" asp-controller="User" asp-action="Details" asp-route-id="@user.Id">Detalji</a>
+            <div class="entity-actions">
+                <a class="btn" asp-controller="User" asp-action="Details" asp-route-id="@user.Id">Detalji</a>
+                <a class="btn" asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Uredi</a>
+                <form asp-controller="User" asp-action="Delete" asp-route-id="@user.Id" method="post" class="inline-form" onsubmit="return confirm('Jeste li sigurni da želite obrisati ovog korisnika?');">
+                    <button type="submit" class="btn btn-danger">Obriši</button>
+                </form>
+            </div>
         </article>
     }
 </div>

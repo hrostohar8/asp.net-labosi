@@ -10,6 +10,7 @@
 </nav>
 
 <h2>Pregled - Arene</h2>
+<a asp-controller="Arena" asp-action="Create" class="btn">Dodaj arenu</a>
 
 <div class="entity-grid">
     @foreach (var arena in Model)
@@ -24,7 +25,13 @@
                 <p><strong>Tip:</strong> @(arena.IsIndoor ? "Unutarnja" : "Vanjska")</p>
                 <p><strong>Otvorena:</strong> @arena.OpenedYear</p>
             </div>
-            <a class="btn" asp-controller="Arena" asp-action="Details" asp-route-id="@arena.Id">Detalji</a>
+            <div class="entity-actions">
+                <a class="btn" asp-controller="Arena" asp-action="Details" asp-route-id="@arena.Id">Detalji</a>
+                <a class="btn" asp-controller="Arena" asp-action="Edit" asp-route-id="@arena.Id">Uredi</a>
+                <form asp-controller="Arena" asp-action="Delete" asp-route-id="@arena.Id" method="post" class="inline-form" onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu arenu?');">
+                    <button type="submit" class="btn btn-danger">Obriši</button>
+                </form>
+            </div>
         </article>
     }
 </div>

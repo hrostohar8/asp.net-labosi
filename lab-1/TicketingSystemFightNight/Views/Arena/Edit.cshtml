@@ -1,0 +1,59 @@
+@model TicketingSystemFightNight.Models.ViewModels.ArenaEditViewModel
+@{
+    Layout = "_Layout";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <a asp-controller="Arena" asp-action="Index">Arene</a> /
+    <span>Uredi arenu</span>
+</nav>
+
+<h2>Uredi arenu</h2>
+
+<form asp-action="Edit" method="post">`r`n    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+    <input asp-for="Id" type="hidden" />
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="City"></label>
+        <input asp-for="City" class="form-control" />
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Capacity"></label>
+        <input asp-for="Capacity" type="number" class="form-control" />
+        <span asp-validation-for="Capacity" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="IsIndoor"></label>
+        <input asp-for="IsIndoor" type="checkbox" class="form-check-input" />
+        <span asp-validation-for="IsIndoor" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="OpenedYear"></label>
+        <input asp-for="OpenedYear" type="number" class="form-control" />
+        <span asp-validation-for="OpenedYear" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn">Spremi</button>
+    <a asp-controller="Arena" asp-action="Index" class="btn">Odustani</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

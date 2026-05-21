@@ -48,3 +48,17 @@
 </div>
 
 <a asp-controller="Match" asp-action="Index">Povratak na listu mečeva</a>
+
+<section id="match-stats" data-match-id="@Model.Id" class="reveal-on-scroll">
+    <h3>Statistika meča</h3>
+    <div class="details-container">
+        <div class="stats-comparison"><canvas></canvas></div>
+        <div class="stats-wl"></div>
+        <div class="stats-pie"><canvas></canvas></div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/js/match-stats.js"></script>
+}

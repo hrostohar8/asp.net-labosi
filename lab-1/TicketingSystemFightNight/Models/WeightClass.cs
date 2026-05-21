@@ -1,14 +1,22 @@
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+
 namespace TicketingSystemFightNight.Models
 {
-    public enum WeightClass
+    public class WeightClass
     {
-        Flyweight,      // do 57kg
-        Bantamweight,   // do 61kg
-        Featherweight,  // do 66kg
-        Lightweight,    // do 70kg
-        Welterweight,   // do 77kg
-        Middleweight,   // do 84kg
-        LightHeavyweight, // do 93kg
-        Heavyweight     // 93kg+
+        [Key]
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Naziv kategorije težine je obavezan.")]
+        [StringLength(100, ErrorMessage = "Naziv kategorije težine ne smije biti duži od 100 znakova.")]
+        public string Name { get; set; } = null!;
+
+        public virtual ICollection<Fighter> Fighters { get; set; } = new List<Fighter>();
+        public virtual ICollection<Match> Matches { get; set; } = new List<Match>();
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
     }
 }

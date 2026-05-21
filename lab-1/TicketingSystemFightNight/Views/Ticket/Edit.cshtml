@@ -1,0 +1,70 @@
+@model TicketingSystemFightNight.Models.ViewModels.TicketEditViewModel
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    Layout = "_Layout";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <a asp-controller="Ticket" asp-action="Manage">Upravljanje kartama</a> /
+    <span>Uredi kartu</span>
+</nav>
+
+<h2>Uredi kartu</h2>
+
+<form asp-action="Edit" method="post">`r`n    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+    <input asp-for="Id" type="hidden" />
+
+    <div class="form-group">
+        <label asp-for="EventId"></label>
+        @await Html.PartialAsync("_AutocompleteDropdown", new { fieldName = "EventId", fieldLabel = "Događaj", ajaxUrl = Url.Action("SearchEvents", "Event"), placeholder = "Pretraži događaje...", selectedId = (ViewBag.SelectedEvent != null ? (int?)ViewBag.SelectedEvent.Id : null), selectedText = (ViewBag.SelectedEvent != null ? (string)ViewBag.SelectedEvent.Text : ""), isRequired = true })
+        <span asp-validation-for="EventId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CartId"></label>
+        <select asp-for="CartId" class="form-control" asp-items="ViewBag.Carts"></select>
+        <span asp-validation-for="CartId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Section"></label>
+        <input asp-for="Section" class="form-control" />
+        <span asp-validation-for="Section" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Row"></label>
+        <input asp-for="Row" type="number" class="form-control" />
+        <span asp-validation-for="Row" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Seat"></label>
+        <input asp-for="Seat" class="form-control" />
+        <span asp-validation-for="Seat" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        @await Html.PartialAsync("_DateTimePicker", new { fieldName = "PurchaseDate", fieldLabel = "Datum kupnje", value = (Model != null && Model.PurchaseDate.Year > 1 ? (DateTime?)Model.PurchaseDate : null), isRequired = true, includeTime = false })
+    </div>
+
+    <div class="form-group">
+        <label asp-for="IsVip"></label>
+        <input asp-for="IsVip" type="checkbox" class="form-check-input" />
+        <span asp-validation-for="IsVip" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn">Spremi</button>
+    <a asp-controller="Ticket" asp-action="Manage" class="btn">Odustani</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

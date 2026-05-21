@@ -17,6 +17,8 @@ namespace TicketingSystemFightNight.Data
         public DbSet<Match> Matches => Set<Match>();
         public DbSet<Ticket> Tickets => Set<Ticket>();
         public DbSet<User> Users => Set<User>();
+        public DbSet<FightOrganization> FightOrganizations => Set<FightOrganization>();
+        public DbSet<WeightClass> WeightClasses => Set<WeightClass>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,7 +36,27 @@ namespace TicketingSystemFightNight.Data
                 .HasForeignKey(m => m.Fighter2Id)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Seed data
+            var fightOrganizations = new[]
+            {
+                new FightOrganization { Id = 1, Name = "UFC" },
+                new FightOrganization { Id = 2, Name = "KSW" },
+                new FightOrganization { Id = 3, Name = "FNC" },
+                new FightOrganization { Id = 4, Name = "BELLATOR" },
+                new FightOrganization { Id = 5, Name = "ONE FC" }
+            };
+
+            var weightClasses = new[]
+            {
+                new WeightClass { Id = 1, Name = "Flyweight" },
+                new WeightClass { Id = 2, Name = "Bantamweight" },
+                new WeightClass { Id = 3, Name = "Featherweight" },
+                new WeightClass { Id = 4, Name = "Lightweight" },
+                new WeightClass { Id = 5, Name = "Welterweight" },
+                new WeightClass { Id = 6, Name = "Middleweight" },
+                new WeightClass { Id = 7, Name = "LightHeavyweight" },
+                new WeightClass { Id = 8, Name = "Heavyweight" }
+            };
+
             var arenas = new[]
             {
                 new Arena(1, "Arena Zagreb", "Zagreb", 15000, "Ulica Grada Vukovara 269a", true, 2008),
@@ -44,29 +66,29 @@ namespace TicketingSystemFightNight.Data
 
             var fighters = new[]
             {
-                new Fighter(1, "Jon Jones", "Bones", WeightClass.LightHeavyweight, FightOrganization.UFC, "USA", 26, 1),
-                new Fighter(2, "Francis Ngannou", "The Predator", WeightClass.Heavyweight, FightOrganization.UFC, "Cameroon", 16, 3),
-                new Fighter(3, "Alexander Gustafsson", "The Mauler", WeightClass.LightHeavyweight, FightOrganization.UFC, "Sweden", 18, 7),
-                new Fighter(4, "Daniel Cormier", "DC", WeightClass.LightHeavyweight, FightOrganization.UFC, "USA", 22, 3),
-                new Fighter(5, "Stipe Miocic", "The Croatian Sensation", WeightClass.Heavyweight, FightOrganization.UFC, "USA", 20, 4),
-                new Fighter(6, "Junior Dos Santos", "Cigano", WeightClass.Heavyweight, FightOrganization.UFC, "Brazil", 21, 9),
-                new Fighter(7, "Conor McGregor", "The Notorious", WeightClass.Lightweight, FightOrganization.UFC, "Ireland", 22, 6),
-                new Fighter(8, "Khabib Nurmagomedov", "The Eagle", WeightClass.Lightweight, FightOrganization.UFC, "Russia", 29, 0)
+                new Fighter { Id = 1, Name = "Jon Jones", Nickname = "Bones", WeightClassId = 7, OrganizationId = 1, Country = "USA", Wins = 26, Losses = 1 },
+                new Fighter { Id = 2, Name = "Francis Ngannou", Nickname = "The Predator", WeightClassId = 8, OrganizationId = 1, Country = "Cameroon", Wins = 16, Losses = 3 },
+                new Fighter { Id = 3, Name = "Alexander Gustafsson", Nickname = "The Mauler", WeightClassId = 7, OrganizationId = 1, Country = "Sweden", Wins = 18, Losses = 7 },
+                new Fighter { Id = 4, Name = "Daniel Cormier", Nickname = "DC", WeightClassId = 7, OrganizationId = 1, Country = "USA", Wins = 22, Losses = 3 },
+                new Fighter { Id = 5, Name = "Stipe Miocic", Nickname = "The Croatian Sensation", WeightClassId = 8, OrganizationId = 1, Country = "USA", Wins = 20, Losses = 4 },
+                new Fighter { Id = 6, Name = "Junior Dos Santos", Nickname = "Cigano", WeightClassId = 8, OrganizationId = 1, Country = "Brazil", Wins = 21, Losses = 9 },
+                new Fighter { Id = 7, Name = "Conor McGregor", Nickname = "The Notorious", WeightClassId = 4, OrganizationId = 1, Country = "Ireland", Wins = 22, Losses = 6 },
+                new Fighter { Id = 8, Name = "Khabib Nurmagomedov", Nickname = "The Eagle", WeightClassId = 4, OrganizationId = 1, Country = "Russia", Wins = 29, Losses = 0 }
             };
 
             var events = new[]
             {
-                new Event(1, "UFC 300", FightOrganization.UFC, "Zagreb", DateTime.Today.AddDays(25), TimeSpan.FromHours(19), arenas[0], "Glavni UFC spektakl u Hrvatskoj", 250m, 12850),
-                new Event(2, "Bellator 295", FightOrganization.BELLATOR, "Split", DateTime.Today.AddDays(40), TimeSpan.FromHours(19), arenas[1], "Najbolji Bellator mečevi u Dalmaciji", 180m, 9800),
-                new Event(3, "KSW 74", FightOrganization.KSW, "Rijeka", DateTime.Today.AddDays(60), TimeSpan.FromHours(19), arenas[2], "KSW ekskluziva manje od sat vremena od Rijeke", 150m, 7600)
+                new Event { Id = 1, Name = "UFC 300", OrganizationId = 1, City = "Zagreb", Date = DateTime.Today.AddDays(25), Time = TimeSpan.FromHours(19), VenueId = 1, Description = "Glavni UFC spektakl u Hrvatskoj", BaseTicketPrice = 250m, TicketsSold = 12850 },
+                new Event { Id = 2, Name = "Bellator 295", OrganizationId = 4, City = "Split", Date = DateTime.Today.AddDays(40), Time = TimeSpan.FromHours(19), VenueId = 2, Description = "Najbolji Bellator mečevi u Dalmaciji", BaseTicketPrice = 180m, TicketsSold = 9800 },
+                new Event { Id = 3, Name = "KSW 74", OrganizationId = 2, City = "Rijeka", Date = DateTime.Today.AddDays(60), Time = TimeSpan.FromHours(19), VenueId = 3, Description = "KSW ekskluziva manje od sat vremena od Rijeke", BaseTicketPrice = 150m, TicketsSold = 7600 }
             };
 
             var matches = new[]
             {
-                new Match(1, fighters[0], fighters[2], WeightClass.LightHeavyweight, events[0], 5, true, "Herb Dean", "Scheduled"),
-                new Match(2, fighters[1], fighters[4], WeightClass.Heavyweight, events[0], 5, false, "John McCarthy", "Scheduled"),
-                new Match(3, fighters[6], fighters[7], WeightClass.Lightweight, events[1], 5, true, "Marc Goddard", "Scheduled"),
-                new Match(4, fighters[3], fighters[5], WeightClass.LightHeavyweight, events[2], 5, false, "Yves Lavigne", "Scheduled")
+                new Match { Id = 1, Fighter1Id = 1, Fighter2Id = 3, WeightClassId = 7, EventId = 1, RoundLimit = 5, Championship = true, Referee = "Herb Dean", Status = "Scheduled" },
+                new Match { Id = 2, Fighter1Id = 2, Fighter2Id = 5, WeightClassId = 8, EventId = 1, RoundLimit = 5, Championship = false, Referee = "John McCarthy", Status = "Scheduled" },
+                new Match { Id = 3, Fighter1Id = 7, Fighter2Id = 8, WeightClassId = 4, EventId = 2, RoundLimit = 5, Championship = true, Referee = "Marc Goddard", Status = "Scheduled" },
+                new Match { Id = 4, Fighter1Id = 4, Fighter2Id = 6, WeightClassId = 7, EventId = 3, RoundLimit = 5, Championship = false, Referee = "Yves Lavigne", Status = "Scheduled" }
             };
 
             var users = new[]
@@ -76,6 +98,8 @@ namespace TicketingSystemFightNight.Data
                 new User(3, "Marko Horvat", "marko@example.com", "+385913456789", new DateTime(1992, 7, 10), 75, false, "Silver")
             };
 
+            modelBuilder.Entity<FightOrganization>().HasData(fightOrganizations);
+            modelBuilder.Entity<WeightClass>().HasData(weightClasses);
             modelBuilder.Entity<Arena>().HasData(arenas);
             modelBuilder.Entity<Fighter>().HasData(fighters);
             modelBuilder.Entity<Event>().HasData(events);

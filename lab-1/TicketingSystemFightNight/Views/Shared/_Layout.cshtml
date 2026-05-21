@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/autocomplete.css" />
+    <link rel="stylesheet" href="~/css/datetime-picker.css" />
 </head>
 <body>
     @{ 
@@ -24,10 +26,18 @@
                 <li><a class="@(currentController == "Fighter" ? "active" : "")" aria-current="@(currentController == "Fighter" ? "page" : null)" asp-controller="Fighter" asp-action="Index">Borci</a></li>
                 <li><a class="@(currentController == "Event" ? "active" : "")" aria-current="@(currentController == "Event" ? "page" : null)" asp-controller="Event" asp-action="Index">Događaji</a></li>
                 <li><a class="@(currentController == "Arena" ? "active" : "")" aria-current="@(currentController == "Arena" ? "page" : null)" asp-controller="Arena" asp-action="Index">Arene</a></li>
+                <li class="dropdown">
+                    <a class="@(currentController == "FightOrganization" || currentController == "WeightClass" || currentController == "TicketShopModels" ? "active" : "")" href="#">Podaci</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" asp-controller="FightOrganization" asp-action="Index"><i class="bi bi-diagram-3"></i> Organizacije</a></li>
+                        <li><a class="dropdown-item" asp-controller="WeightClass" asp-action="Index"><i class="bi bi-speedometer2"></i> Kategorije težine</a></li>
+                        <li><a class="dropdown-item" asp-controller="TicketShopModels" asp-action="Index"><i class="bi bi-ticket"></i> Ponude karata</a></li>
+                    </ul>
+                </li>
                 <li><a class="@(currentController == "Match" ? "active" : "")" aria-current="@(currentController == "Match" ? "page" : null)" asp-controller="Match" asp-action="Index">Mečevi</a></li>
                 <li><a class="@(currentController == "Ticket" ? "active" : "")" aria-current="@(currentController == "Ticket" ? "page" : null)" asp-controller="Ticket" asp-action="Index">Karte</a></li>
                 <li><a class="@(currentController == "User" ? "active" : "")" aria-current="@(currentController == "User" ? "page" : null)" asp-controller="User" asp-action="Index">Korisnici</a></li>
-                <li><a class="@(currentController == "Cart" ? "active" : "")" aria-current="@(currentController == "Cart" ? "page" : null)" asp-controller="Cart" asp-action="Index">Košarice</a></li>
+                <li><a class="@(currentController == "Cart" ? "active" : "")" aria-current="@(currentController == "Cart" ? "page" : null)" asp-controller="Cart" asp-action="Current">Košarica</a></li>
             </ul>
         </div>
     </nav>
@@ -41,5 +51,14 @@
     </footer>
 
     <script src="~/js/site.js"></script>
+    <script src="~/js/page-animations.js"></script>
+    <script src="~/js/form-enhancements.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/datetime-picker.js"></script>
+    <script src="~/js/autocomplete.js"></script>
+    <script src="~/js/validation.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

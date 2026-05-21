@@ -1,0 +1,73 @@
+@model object
+
+@{
+    var modelType = Model.GetType();
+    var idProperty = modelType.GetProperty("Id");
+    var titleValue = modelType.GetProperty("Title")?.GetValue(Model)?.ToString() ?? string.Empty;
+    var eventNameValue = modelType.GetProperty("EventName")?.GetValue(Model)?.ToString() ?? string.Empty;
+    var locationValue = modelType.GetProperty("Location")?.GetValue(Model)?.ToString() ?? string.Empty;
+    var sectionValue = modelType.GetProperty("Section")?.GetValue(Model)?.ToString() ?? string.Empty;
+    var rowValue = modelType.GetProperty("Row")?.GetValue(Model) ?? 0;
+    var seatValue = modelType.GetProperty("Seat")?.GetValue(Model)?.ToString() ?? string.Empty;
+    var priceValue = modelType.GetProperty("Price")?.GetValue(Model) ?? 0m;
+    var isVipValue = modelType.GetProperty("IsVip")?.GetValue(Model) ?? false;
+    var descriptionValue = modelType.GetProperty("Description")?.GetValue(Model)?.ToString() ?? string.Empty;
+}
+
+@if (idProperty != null)
+{
+    <input type="hidden" name="Id" value="@idProperty.GetValue(Model)" />
+}
+
+<div class="mb-3">
+    <label for="Title" class="form-label">Naslov</label>
+    <input type="text" id="Title" name="Title" value="@titleValue" class="form-control" />
+    <span class="text-danger">@Html.ValidationMessage("Title")</span>
+</div>
+
+<div class="mb-3">
+    <label for="EventName" class="form-label">Naziv događaja</label>
+    <input type="text" id="EventName" name="EventName" value="@eventNameValue" class="form-control" />
+    <span class="text-danger">@Html.ValidationMessage("EventName")</span>
+</div>
+
+<div class="mb-3">
+    <label for="Location" class="form-label">Lokacija</label>
+    <input type="text" id="Location" name="Location" value="@locationValue" class="form-control" />
+    <span class="text-danger">@Html.ValidationMessage("Location")</span>
+</div>
+
+<div class="mb-3">
+    <label for="Section" class="form-label">Sekcija</label>
+    <input type="text" id="Section" name="Section" value="@sectionValue" class="form-control" />
+    <span class="text-danger">@Html.ValidationMessage("Section")</span>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <label for="Row" class="form-label">Red</label>
+        <input type="number" id="Row" name="Row" value="@rowValue" class="form-control" min="1" />
+        <span class="text-danger">@Html.ValidationMessage("Row")</span>
+    </div>
+    <div class="col-md-4 mb-3">
+        <label for="Seat" class="form-label">Sjedalo</label>
+        <input type="text" id="Seat" name="Seat" value="@seatValue" class="form-control" />
+        <span class="text-danger">@Html.ValidationMessage("Seat")</span>
+    </div>
+    <div class="col-md-4 mb-3">
+        <label for="Price" class="form-label">Cijena</label>
+        <input type="number" id="Price" name="Price" value="@priceValue" step="0.01" class="form-control" />
+        <span class="text-danger">@Html.ValidationMessage("Price")</span>
+    </div>
+</div>
+
+<div class="form-check mb-3">
+    <input type="checkbox" id="IsVip" name="IsVip" class="form-check-input" @(isVipValue.ToString()?.ToLower() == "true" ? "checked" : "") />
+    <label class="form-check-label" for="IsVip">VIP ponuda</label>
+</div>
+
+<div class="mb-3">
+    <label for="Description" class="form-label">Opis</label>
+    <textarea id="Description" name="Description" class="form-control" rows="4">@descriptionValue</textarea>
+    <span class="text-danger">@Html.ValidationMessage("Description")</span>
+</div>

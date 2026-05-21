@@ -10,8 +10,14 @@
 </nav>
 
 <h2>Pregled - Mečevi</h2>
+<a asp-controller="Match" asp-action="Create" class="btn">Dodaj meč</a>
 
-<div class="entity-grid">
+<div class="table-filter-wrap">
+    <div class="table-filter-controls">
+        <input type="search" class="table-search" placeholder="Pretraži mečeve..." aria-label="Pretraži mečeve" />
+        <span class="table-results-counter">0 results found</span>
+    </div>
+    <div class="entity-grid">
     @foreach (var match in Model)
     {
         <article class="entity-card">
@@ -20,14 +26,25 @@
                 <p><strong>Id:</strong> @match.Id</p>
                 <p><strong>Borac 1:</strong> @match.Fighter1.Name</p>
                 <p><strong>Borac 2:</strong> @match.Fighter2.Name</p>
-                <p><strong>Težinska klasa:</strong> @match.WeightClass</p>
+                <p><strong>Težinska klasa:</strong> @match.WeightClass?.Name</p>
                 <p><strong>Događaj:</strong> @match.Event.Name</p>
                 <p><strong>Runde:</strong> @match.RoundLimit</p>
                 <p><strong>Šampionski:</strong> @(match.Championship ? "Da" : "Ne")</p>
                 <p><strong>Sudac:</strong> @match.Referee</p>
                 <p><strong>Status:</strong> @match.Status</p>
             </div>
-            <a class="btn" asp-controller="Match" asp-action="Details" asp-route-id="@match.Id">Detalji</a>
+            <div class="entity-actions">
+                <a class="btn" asp-controller="Match" asp-action="Details" asp-route-id="@match.Id">Detalji</a>
+                <a class="btn" asp-controller="Match" asp-action="Edit" asp-route-id="@match.Id">Uredi</a>
+                <form asp-controller="Match" asp-action="Delete" asp-route-id="@match.Id" method="post" class="inline-form" onsubmit="return confirm('Jeste li sigurni da želite obrisati ovaj meč?');">
+                    <button type="submit" class="btn btn-danger">Obriši</button>
+                </form>
+            </div>
         </article>
     }
+    </div>
 </div>
+
+@section Scripts{
+    <script src="~/js/table-filter.js"></script>
+}

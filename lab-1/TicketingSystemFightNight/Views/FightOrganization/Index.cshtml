@@ -1,0 +1,58 @@
+@{
+    Layout = "_Layout";
+}
+
+@model List<TicketingSystemFightNight.Models.FightOrganization>
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <span>Organizacije</span>
+</nav>
+
+<h2>Pregled organizacija</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="card">
+    <div class="card-body">
+        <a asp-action="Create" class="btn btn-primary mb-3">
+            <i class="bi bi-plus-circle"></i> Dodaj organizaciju
+        </a>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Naziv</th>
+                        <th>Akcije</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var organization in Model)
+                    {
+                        <tr>
+                            <td>@organization.Id</td>
+                            <td>@organization.Name</td>
+                            <td>
+                                <a class="btn btn-sm btn-outline-secondary me-2" asp-action="Edit" asp-route-id="@organization.Id">
+                                    <i class="bi bi-pencil"></i> Uredi
+                                </a>
+                                <form asp-action="Delete" asp-route-id="@organization.Id" method="post" class="d-inline" onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu organizaciju?');">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i> Obriši
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

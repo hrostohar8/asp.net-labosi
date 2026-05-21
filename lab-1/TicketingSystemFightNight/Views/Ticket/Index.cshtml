@@ -34,7 +34,7 @@
             </ul>
             <div class="ticket-footer">
                 <strong class="ticket-price">@offer.PriceDisplay</strong>
-                <form asp-action="AddToCart" method="post" asp-antiforgery="true">
+                <form action="/ulaznice/dodaj-u-kosaricu" method="post" asp-antiforgery="true">
                     <input type="hidden" name="offerId" value="@offer.Id" />
                     <button type="submit" class="btn btn-primary">Dodaj u košaricu</button>
                 </form>

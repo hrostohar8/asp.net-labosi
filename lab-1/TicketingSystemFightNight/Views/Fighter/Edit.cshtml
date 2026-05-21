@@ -1,0 +1,66 @@
+@model TicketingSystemFightNight.Models.ViewModels.FighterEditViewModel
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    Layout = "_Layout";
+}
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <a asp-controller="Fighter" asp-action="Index">Borci</a> /
+    <span>Uredi borca</span>
+</nav>
+
+<h2>Uredi borca</h2>
+
+<form asp-action="Edit" method="post">`r`n    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+    <input asp-for="Id" type="hidden" />
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Nickname"></label>
+        <input asp-for="Nickname" class="form-control" />
+        <span asp-validation-for="Nickname" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="WeightClassId"></label>
+        <select asp-for="WeightClassId" class="form-control" asp-items="ViewBag.WeightClasses"></select>
+        <span asp-validation-for="WeightClassId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="OrganizationId"></label>
+        <select asp-for="OrganizationId" class="form-control" asp-items="ViewBag.Organizations"></select>
+        <span asp-validation-for="OrganizationId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Country"></label>
+        <input asp-for="Country" class="form-control" />
+        <span asp-validation-for="Country" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Wins"></label>
+        <input asp-for="Wins" type="number" class="form-control" />
+        <span asp-validation-for="Wins" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Losses"></label>
+        <input asp-for="Losses" type="number" class="form-control" />
+        <span asp-validation-for="Losses" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn">Spremi</button>
+    <a asp-controller="Fighter" asp-action="Index" class="btn">Odustani</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

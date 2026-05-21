@@ -12,12 +12,19 @@ namespace TicketingSystemFightNight.Models
         public int Id { get; set; }
 
         [ForeignKey("User")]
+        [Range(1, int.MaxValue, ErrorMessage = "Odaberite korisnika")]
         public int UserId { get; set; }
         public virtual User User { get; set; } = null!;
 
         public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
+
+        [StringLength(50, ErrorMessage = "Kod za popust ne smije biti duži od 50 znakova")]
         public string? DiscountCode { get; set; }
+
+        [Range(0, 100, ErrorMessage = "Postotak popusta mora biti između 0 i 100")]
         public decimal DiscountPercent { get; set; }
         public bool IsPaid { get; set; }
 

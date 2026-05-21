@@ -1,0 +1,35 @@
+@{
+    Layout = "_Layout";
+}
+
+@model TicketingSystemFightNight.Models.CartPageViewModel
+
+<nav class="breadcrumbs">
+    <a asp-controller="Home" asp-action="Index">Početna</a> /
+    <span>Košarica</span>
+</nav>
+
+<h2>Moja košarica</h2>
+
+@if (!Model.CartItems.Any())
+{
+    <div class="alert info">
+        Vaša košarica je trenutno prazna. Dodajte karte na stranici <a asp-controller="Ticket" asp-action="Index">Karte</a>.
+    </div>
+}
+else
+{
+    <section class="cart-summary">
+        <p>Ukupno stavki: <strong>@Model.CartCount</strong></p>
+        <ul class="cart-items-list">
+            @foreach (var item in Model.CartItems)
+            {
+                <li>
+                    <strong>@item.Title</strong> - @item.Section @item.Row@item.Seat, @item.PriceDisplay
+                </li>
+            }
+        </ul>
+        <p class="cart-total">Ukupno: <strong>@Model.CartTotal.ToString("C")</strong></p>
+    </section>
+    <a class="btn btn-primary" asp-controller="Ticket" asp-action="Index">Nastavi s kupnjom</a>
+}

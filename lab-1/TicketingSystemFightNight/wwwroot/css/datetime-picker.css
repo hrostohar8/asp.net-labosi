@@ -1,0 +1,181 @@
+.datetime-picker-wrapper {
+    position: relative;
+    margin-bottom: 1.2rem;
+}
+.datetime-picker-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+}
+.required-indicator {
+    color: #d93025;
+    margin-left: 0.2rem;
+}
+.datetime-picker-control {
+    display: flex;
+    align-items: stretch;
+    position: relative;
+    gap: 0.4rem;
+}
+.datetime-picker-input {
+    width: 100%;
+    cursor: pointer;
+    padding-right: 2.8rem;
+    background: #fff;
+}
+.datetime-picker-toggle {
+    width: 2.8rem;
+    min-width: 2.8rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    background: #f8f9fa;
+    color: #495057;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.datetime-picker-toggle:hover {
+    background: #e9ecef;
+}
+.datetime-picker-popup {
+    position: absolute;
+    inset: auto auto auto 0;
+    width: 100%;
+    max-width: 360px;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid rgba(33, 37, 41, 0.12);
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 220ms ease, transform 220ms ease;
+    z-index: 999;
+}
+.datetime-picker-popup.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+.picker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+}
+.picker-nav {
+    border: none;
+    background: transparent;
+    color: #212529;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+.picker-head {
+    display: flex;
+    gap: 0.5rem;
+    flex: 1;
+    justify-content: center;
+}
+.picker-head select {
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.95rem;
+    background: #fff;
+    color: #212529;
+}
+.picker-weekdays,
+.picker-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.35rem;
+}
+.picker-weekday {
+    text-align: center;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #6c757d;
+    padding-bottom: 0.2rem;
+}
+.picker-day {
+    border: none;
+    background: transparent;
+    color: #212529;
+    min-height: 2.8rem;
+    border-radius: 0.65rem;
+    cursor: pointer;
+    transition: background-color 200ms ease, transform 200ms ease, color 200ms ease;
+}
+.picker-day:hover,
+.picker-day:focus {
+    background: #f1f3f5;
+    outline: none;
+    transform: translateY(-1px);
+}
+.picker-day--today {
+    box-shadow: inset 0 0 0 1px #0d6efd;
+}
+.picker-day--selected {
+    background: #0d6efd;
+    color: #fff;
+}
+.picker-day--muted {
+    color: #adb5bd;
+}
+.picker-day--past:not(.picker-day--selected) {
+    color: #868e96;
+}
+.picker-time {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+    align-items: center;
+}
+.picker-time-row {
+    display: contents;
+}
+.picker-time label {
+    font-size: 0.75rem;
+    color: #495057;
+}
+.picker-time select {
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem;
+    padding: 0.45rem 0.55rem;
+    background: #fff;
+    color: #212529;
+}
+.picker-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+.picker-action {
+    border: 1px solid #ced4da;
+    background: #fff;
+    color: #212529;
+    padding: 0.55rem 0.95rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 200ms ease, border-color 200ms ease;
+}
+.picker-action:hover {
+    background: #f8f9fa;
+}
+@media (max-width: 550px) {
+    .datetime-picker-popup {
+        width: calc(100vw - 1rem);
+        left: 0;
+        right: 0;
+    }
+    .picker-head {
+        flex-direction: column;
+    }
+    .picker-time {
+        grid-template-columns: 1fr 1fr;
+    }
+}

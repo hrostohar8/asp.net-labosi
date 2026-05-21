@@ -1,21 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using TicketingSystemFightNight.Data;
 using TicketingSystemFightNight.Helpers;
 using TicketingSystemFightNight.Models;
-using TicketingSystemFightNight.Repositories;
+using TicketingSystemFightNight.Models.ViewModels;
 
 namespace TicketingSystemFightNight.Controllers
 {
     [Route("ulaznice")]
+    [Route("Ticket")]
     public class TicketController : Controller
     {
-        private readonly IRepository<Ticket> _repository;
+        private readonly VjezbaDbContext _context;
         private const string SessionCartKey = "TicketCart";
 
-        public TicketController(IRepository<Ticket> repository)
+        public TicketController(VjezbaDbContext context)
         {
-            _repository = repository;
+            _context = context;
         }
 
         [HttpGet("")]
@@ -48,14 +51,169 @@ namespace TicketingSystemFightNight.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet("manage")]
+        public async Task<IActionResult> Manage()
+        {
+            var tickets = await _context.Tickets
+                .Where(t => t.DeletedAt == null)
+                .Include(t => t.Event)
+                .Include(t => t.Cart)
+                .OrderByDescending(t => t.PurchaseDate)
+                .ToListAsync();
+
+            return View(tickets);
+        }
+
+        [HttpGet("Create")]
+        [ActionName("Create")]
+        public IActionResult CreateGet()
+        {
+            ViewBag.Events = new SelectList(_context.Events.Where(e => e.DeletedAt == null).ToList(), "Id", "Name");
+            ViewBag.Carts = new SelectList(_context.Carts.Where(c => c.DeletedAt == null).ToList(), "Id", "Id");
+            return View();
+        }
+
+        [HttpPost("Create")]
+        [ActionName("Create")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreatePost(TicketCreateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Events = new SelectList(_context.Events.Where(e => e.DeletedAt == null).ToList(), "Id", "Name", model.EventId);
+                ViewBag.Carts = new SelectList(_context.Carts.Where(c => c.DeletedAt == null).ToList(), "Id", "Id", model.CartId);
+                ViewBag.SelectedEvent = model.EventId > 0
+                    ? await _context.Events.AsNoTracking().Where(e => e.Id == model.EventId).Select(e => new { e.Id, e.Name }).FirstOrDefaultAsync()
+                    : null;
+                return View(model);
+            }
+
+            var ticket = new Ticket
+            {
+                EventId = model.EventId,
+                CartId = model.CartId,
+                Section = model.Section,
+                Row = model.Row,
+                Seat = model.Seat,
+                Price = model.Price,
+                PurchaseDate = model.PurchaseDate,
+                IsVip = model.IsVip,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _context.Tickets.Add(ticket);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Karta je uspješno kreirana!";
+            return RedirectToAction(nameof(Manage));
+        }
+
         [HttpGet("detalji/{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
-            var ticket = await _repository.GetByIdAsync(id, query =>
-                query.Include(t => t.Event).Include(t => t.Cart));
+            var ticket = await _context.Tickets
+                .Where(t => t.DeletedAt == null)
+                .Include(t => t.Event)
+                .Include(t => t.Cart)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
             if (ticket == null)
                 return NotFound();
             return View(ticket);
+        }
+
+        [ActionName("Edit")]
+        public async Task<IActionResult> EditGet(int id)
+        {
+            var ticket = await _context.Tickets.FindAsync(id);
+            if (ticket == null || ticket.DeletedAt != null)
+                return NotFound();
+
+            ViewBag.Events = new SelectList(_context.Events.Where(e => e.DeletedAt == null).ToList(), "Id", "Name", ticket.EventId);
+            var ev = await _context.Events.AsNoTracking().FirstOrDefaultAsync(e => e.Id == ticket.EventId);
+            ViewBag.SelectedEvent = ev != null ? new { Id = ev.Id, Text = ev.Name } : null;
+            ViewBag.Carts = new SelectList(_context.Carts.Where(c => c.DeletedAt == null).ToList(), "Id", "Id", ticket.CartId);
+
+            var model = new TicketEditViewModel
+            {
+                Id = ticket.Id,
+                EventId = ticket.EventId,
+                CartId = ticket.CartId,
+                Section = ticket.Section,
+                Row = ticket.Row,
+                Seat = ticket.Seat,
+                Price = ticket.Price,
+                PurchaseDate = ticket.PurchaseDate,
+                IsVip = ticket.IsVip
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPost(int id)
+        {
+            var ticket = await _context.Tickets.FindAsync(id);
+            if (ticket == null || ticket.DeletedAt != null)
+                return NotFound();
+
+            var ok = await TryUpdateModelAsync(
+                ticket,
+                "",
+                t => t.EventId,
+                t => t.CartId,
+                t => t.Section,
+                t => t.Row,
+                t => t.Seat,
+                t => t.Price,
+                t => t.PurchaseDate,
+                t => t.IsVip);
+
+            if (!ok || !ModelState.IsValid)
+            {
+                ViewBag.Events = new SelectList(_context.Events.Where(e => e.DeletedAt == null).ToList(), "Id", "Name", ticket.EventId);
+                ViewBag.Carts = new SelectList(_context.Carts.Where(c => c.DeletedAt == null).ToList(), "Id", "Id", ticket.CartId);
+                ViewBag.SelectedEvent = ticket.EventId > 0
+                    ? await _context.Events.AsNoTracking().Where(e => e.Id == ticket.EventId).Select(e => new { e.Id, e.Name }).FirstOrDefaultAsync()
+                    : null;
+
+                var model = new TicketEditViewModel
+                {
+                    Id = ticket.Id,
+                    EventId = ticket.EventId,
+                    CartId = ticket.CartId,
+                    Section = ticket.Section,
+                    Row = ticket.Row,
+                    Seat = ticket.Seat,
+                    Price = ticket.Price,
+                    PurchaseDate = ticket.PurchaseDate,
+                    IsVip = ticket.IsVip
+                };
+                return View(model);
+            }
+
+            ticket.UpdatedAt = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Karta je uspješno ažurirana!";
+            return RedirectToAction(nameof(Manage));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var ticket = await _context.Tickets.FindAsync(id);
+            if (ticket == null)
+                return NotFound();
+
+            ticket.DeletedAt = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Karta je uspješno obrisana!";
+            return RedirectToAction(nameof(Manage));
         }
 
         private List<TicketOffer> GetCartItems()
