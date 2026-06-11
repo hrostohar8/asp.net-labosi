@@ -51,6 +51,7 @@ namespace TicketingSystemFightNight.Controllers.Api
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Create([FromBody] WeightClass weightClass)
         {
             if (!ModelState.IsValid)
@@ -65,6 +66,7 @@ namespace TicketingSystemFightNight.Controllers.Api
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Update(int id, [FromBody] WeightClass weightClass)
         {
             if (id != weightClass.Id)
@@ -86,6 +88,7 @@ namespace TicketingSystemFightNight.Controllers.Api
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             var existing = _context.WeightClasses.FirstOrDefault(w => w.Id == id && w.DeletedAt == null);

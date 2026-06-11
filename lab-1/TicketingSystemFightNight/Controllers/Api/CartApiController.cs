@@ -57,6 +57,7 @@ namespace TicketingSystemFightNight.Controllers.Api
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Create([FromBody] Cart cart)
         {
             if (!ModelState.IsValid)
@@ -77,6 +78,7 @@ namespace TicketingSystemFightNight.Controllers.Api
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Update(int id, [FromBody] Cart cart)
         {
             if (id != cart.Id)
@@ -108,6 +110,7 @@ namespace TicketingSystemFightNight.Controllers.Api
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             var existing = _context.Carts.FirstOrDefault(c => c.Id == id && c.DeletedAt == null);

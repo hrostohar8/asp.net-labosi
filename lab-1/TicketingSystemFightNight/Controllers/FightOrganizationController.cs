@@ -17,6 +17,7 @@ namespace TicketingSystemFightNight.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var organizations = await _context.FightOrganizations
@@ -28,12 +29,14 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [ActionName("Create")]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult CreateGet()
         {
             return View(new FightOrganizationCreateViewModel());
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ActionName("Create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePost(FightOrganizationCreateViewModel model)
@@ -55,6 +58,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [ActionName("Edit")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> EditGet(int id)
         {
             var organization = await _context.FightOrganizations
@@ -74,6 +78,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(int id)
@@ -106,6 +111,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {

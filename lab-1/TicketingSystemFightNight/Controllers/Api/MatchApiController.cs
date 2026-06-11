@@ -86,6 +86,7 @@ namespace TicketingSystemFightNight.Controllers.Api
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Create([FromBody] Match match)
         {
             if (!ModelState.IsValid)
@@ -110,6 +111,7 @@ namespace TicketingSystemFightNight.Controllers.Api
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Update(int id, [FromBody] Match match)
         {
             if (id != match.Id)
@@ -149,6 +151,7 @@ namespace TicketingSystemFightNight.Controllers.Api
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             var existing = _context.Matches.FirstOrDefault(m => m.Id == id && m.DeletedAt == null);

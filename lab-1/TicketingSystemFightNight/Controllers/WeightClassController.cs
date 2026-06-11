@@ -29,12 +29,14 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [ActionName("Create")]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult CreateGet()
         {
             return View(new WeightClassCreateViewModel());
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ActionName("Create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePost(WeightClassCreateViewModel model)
@@ -56,6 +58,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [ActionName("Edit")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> EditGet(int id)
         {
             var weightClass = await _context.WeightClasses
@@ -75,6 +78,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(int id)
@@ -107,6 +111,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {

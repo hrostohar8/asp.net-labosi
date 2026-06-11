@@ -45,6 +45,7 @@ namespace TicketingSystemFightNight.Controllers
                 : null;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var matches = await _context.Matches
@@ -60,6 +61,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [ActionName("Create")]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult CreateGet()
         {
             PopulateMatchDropdowns();
@@ -98,6 +100,7 @@ namespace TicketingSystemFightNight.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var match = await _context.Matches
@@ -115,6 +118,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> ApiStats(int id)
         {
             var match = await _context.Matches

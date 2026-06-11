@@ -51,6 +51,7 @@ namespace TicketingSystemFightNight.Controllers.Api
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Create([FromBody] FightOrganization organization)
         {
             if (!ModelState.IsValid)
@@ -65,6 +66,7 @@ namespace TicketingSystemFightNight.Controllers.Api
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Update(int id, [FromBody] FightOrganization organization)
         {
             if (id != organization.Id)
@@ -86,6 +88,7 @@ namespace TicketingSystemFightNight.Controllers.Api
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             var existing = _context.FightOrganizations.FirstOrDefault(o => o.Id == id && o.DeletedAt == null);
