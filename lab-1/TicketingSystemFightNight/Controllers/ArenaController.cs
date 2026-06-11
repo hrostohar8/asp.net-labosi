@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicketingSystemFightNight.Data;
@@ -6,6 +7,7 @@ using TicketingSystemFightNight.Models.ViewModels;
 
 namespace TicketingSystemFightNight.Controllers
 {
+    [Authorize]
     public class ArenaController : Controller
     {
         private readonly VjezbaDbContext _context;
@@ -15,7 +17,8 @@ namespace TicketingSystemFightNight.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        [AllowAnonymous]
+        public async Task<IActionResult> Index()            //prikaz svih arena, sortirano po nazivu
         {
             var arenas = await _context.Arenas
                 .Where(a => a.DeletedAt == null)
@@ -25,16 +28,18 @@ namespace TicketingSystemFightNight.Controllers
             return View(arenas);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [ActionName("Create")]
-        public IActionResult CreateGet()
+        public IActionResult CreateGet()        //daj mi formu za kreiranje arene
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreatePost(ArenaCreateViewModel model)
+        public async Task<IActionResult> CreatePost(ArenaCreateViewModel model)     //submit forme za kreiranje
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -43,7 +48,7 @@ namespace TicketingSystemFightNight.Controllers
             {
                 Name = model.Name,
                 City = model.City,
-                Address = model.Address,
+                Address = model.Address,            //stvaranje objekta
                 Capacity = model.Capacity,
                 IsIndoor = model.IsIndoor,
                 OpenedYear = model.OpenedYear,
@@ -58,7 +63,8 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> SearchArenas(string term)
+        [AllowAnonymous]
+        public async Task<IActionResult> SearchArenas(string term)  // This method is used for AJAX search in dropdowns
         {
             try
             {
@@ -83,6 +89,7 @@ namespace TicketingSystemFightNight.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [ActionName("Edit")]
         public async Task<IActionResult> EditGet(int id)
         {
@@ -108,6 +115,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(int id)
@@ -150,8 +158,9 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id)     //soft delete
         {
             var arena = await _context.Arenas.FindAsync(id);
             if (arena == null)

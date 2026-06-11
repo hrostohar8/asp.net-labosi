@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicketingSystemFightNight.Data;
@@ -6,6 +7,7 @@ using TicketingSystemFightNight.Models.ViewModels;
 
 namespace TicketingSystemFightNight.Controllers
 {
+    [Authorize]
     public class FightOrganizationController : Controller
     {
         private readonly VjezbaDbContext _context;

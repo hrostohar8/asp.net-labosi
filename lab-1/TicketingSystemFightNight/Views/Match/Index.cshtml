@@ -12,7 +12,7 @@
 <h2>Pregled - Mečevi</h2>
 <a asp-controller="Match" asp-action="Create" class="btn">Dodaj meč</a>
 
-<div class="table-filter-wrap">
+<div class="table-filter-wrap" data-ajax-url="@Url.Action("SearchMatches", "Match")">
     <div class="table-filter-controls">
         <input type="search" class="table-search" placeholder="Pretraži mečeve..." aria-label="Pretraži mečeve" />
         <span class="table-results-counter">0 results found</span>
@@ -21,13 +21,13 @@
     @foreach (var match in Model)
     {
         <article class="entity-card">
-            <h3>@match.Fighter1.Name vs @match.Fighter2.Name</h3>
+            <h3>@match.Fighter1?.Name vs @match.Fighter2?.Name</h3>
             <div class="entity-props">
                 <p><strong>Id:</strong> @match.Id</p>
-                <p><strong>Borac 1:</strong> @match.Fighter1.Name</p>
-                <p><strong>Borac 2:</strong> @match.Fighter2.Name</p>
+                <p><strong>Borac 1:</strong> @match.Fighter1?.Name</p>
+                <p><strong>Borac 2:</strong> @match.Fighter2?.Name</p>
                 <p><strong>Težinska klasa:</strong> @match.WeightClass?.Name</p>
-                <p><strong>Događaj:</strong> @match.Event.Name</p>
+                <p><strong>Događaj:</strong> @match.Event?.Name</p>
                 <p><strong>Runde:</strong> @match.RoundLimit</p>
                 <p><strong>Šampionski:</strong> @(match.Championship ? "Da" : "Ne")</p>
                 <p><strong>Sudac:</strong> @match.Referee</p>
@@ -46,5 +46,5 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/table-filter.js"></script>
+    <script src="~/js/match-search.js"></script>
 }

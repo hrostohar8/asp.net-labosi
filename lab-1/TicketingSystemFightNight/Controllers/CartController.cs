@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using TicketingSystemFightNight.Models.ViewModels;
 
 namespace TicketingSystemFightNight.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private readonly VjezbaDbContext _context;
@@ -18,6 +20,7 @@ namespace TicketingSystemFightNight.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Current()
         {

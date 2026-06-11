@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicketingSystemFightNight.Data;
@@ -6,6 +7,7 @@ using TicketingSystemFightNight.Models.ViewModels;
 
 namespace TicketingSystemFightNight.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly VjezbaDbContext _context;
@@ -155,7 +157,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> SearchUsers(string term)
+        public async Task<IActionResult> SearchUsers(string term)     // This method is used for AJAX search in dropdowns
         {
             try
             {

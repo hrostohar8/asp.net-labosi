@@ -12,7 +12,7 @@ namespace TicketingSystemFightNight.Models
         [ForeignKey("Event")]
         [Range(1, int.MaxValue, ErrorMessage = "Odaberite događaj")]
         public int EventId { get; set; }
-        public virtual Event Event { get; set; } = null!;
+        public virtual Event? Event { get; set; }
 
         [ForeignKey("Cart")]
         public int? CartId { get; set; }

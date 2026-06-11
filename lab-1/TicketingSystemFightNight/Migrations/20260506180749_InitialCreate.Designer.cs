@@ -11,7 +11,7 @@ using TicketingSystemFightNight.Data;
 
 namespace TicketingSystemFightNight.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(VjezbaDbContext))]
     [Migration("20260506180749_InitialCreate")]
     partial class InitialCreate
     {

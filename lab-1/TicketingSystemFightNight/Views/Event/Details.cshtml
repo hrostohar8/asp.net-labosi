@@ -71,3 +71,8 @@
 <div class="details-actions">
     <a class="btn" asp-controller="Event" asp-action="Index">Povratak na listu događaja</a>
 </div>
+    <hr />
+    <h4>Privici</h4>
+    <div id="detailsAttachmentList">
+        @await Html.PartialAsync("_AttachmentList", (IEnumerable<TicketingSystemFightNight.Models.EventAttachment>)ViewBag.EventAttachments)
+    </div>

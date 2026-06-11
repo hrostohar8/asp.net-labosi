@@ -1,0 +1,43 @@
+@model IEnumerable<TicketingSystemFightNight.Models.EventAttachment>
+
+@if (!Model.Any())
+{
+    <p class="text-muted">Nema uploadanih datoteka.</p>
+}
+else
+{
+    <table class="table table-sm table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Naziv datoteke</th>
+                <th>Veličina</th>
+                <th>Datum uploada</th>
+                <th>Akcija</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var attachment in Model)
+            {
+                <tr id="attachment-row-@attachment.Id">
+                    <td>
+                        <a href="@attachment.FilePath" target="_blank" class="text-decoration-none">
+                            <i class="bi bi-file-earmark"></i>
+                            @attachment.OriginalFileName
+                        </a>
+                    </td>
+                    <td>
+                        @(attachment.FileSize < 1024 ? attachment.FileSize + " B" : attachment.FileSize < 1048576 ? (attachment.FileSize / 1024).ToString("0.0") + " KB" : (attachment.FileSize / 1048576.0).ToString("0.0") + " MB")
+                    </td>
+                    <td>@attachment.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>
+                        <button type="button"
+                                class="btn btn-danger btn-sm"
+                                onclick="deleteAttachment(@attachment.Id)">
+                            <i class="bi bi-trash"></i> Obriši
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

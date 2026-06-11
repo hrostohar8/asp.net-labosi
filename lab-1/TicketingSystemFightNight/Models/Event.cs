@@ -17,7 +17,7 @@ namespace TicketingSystemFightNight.Models
         [ForeignKey("Organization")]
         [Range(1, int.MaxValue, ErrorMessage = "Odaberite organizaciju")]
         public int OrganizationId { get; set; }
-        public virtual FightOrganization Organization { get; set; } = null!;
+        public virtual FightOrganization? Organization { get; set; }
 
         [Required(ErrorMessage = "Grad je obavezan")]
         [StringLength(100, ErrorMessage = "Grad ne smije biti duži od 100 znakova")]
@@ -31,7 +31,7 @@ namespace TicketingSystemFightNight.Models
         [ForeignKey("Venue")]
         [Range(1, int.MaxValue, ErrorMessage = "Odaberite arenu")]
         public int VenueId { get; set; }
-        public virtual Arena Venue { get; set; } = null!;
+        public virtual Arena? Venue { get; set; }
 
         [StringLength(1000, ErrorMessage = "Opis ne smije biti duži od 1000 znakova")]
         public string Description { get; set; } = null!;
@@ -43,6 +43,7 @@ namespace TicketingSystemFightNight.Models
         public int TicketsSold { get; set; }
         public virtual ICollection<Match> Matches { get; set; } = new List<Match>();
         public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+        public virtual ICollection<EventAttachment> Attachments { get; set; } = new List<EventAttachment>();
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }

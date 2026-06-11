@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TicketingSystemFightNight.Repositories;
 using TicketingSystemFightNight.Models;
 
 namespace TicketingSystemFightNight.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class DashboardController : Controller
     {
         private readonly IRepository<Fighter> _fighterRepo;
@@ -98,7 +100,7 @@ namespace TicketingSystemFightNight.Controllers
 
     public class OrganizationStats
     {
-        public FightOrganization Organization { get; set; }
+        public FightOrganization? Organization { get; set; }
         public int Count { get; set; }
     }
 }

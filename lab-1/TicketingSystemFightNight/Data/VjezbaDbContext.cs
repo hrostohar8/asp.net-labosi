@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TicketingSystemFightNight.Models;
 
 namespace TicketingSystemFightNight.Data
 {
-    public class VjezbaDbContext : DbContext
+    public class VjezbaDbContext : IdentityDbContext<AppUser>
     {
         public VjezbaDbContext(DbContextOptions<VjezbaDbContext> options)
             : base(options)
@@ -13,13 +14,14 @@ namespace TicketingSystemFightNight.Data
         public DbSet<Arena> Arenas => Set<Arena>();
         public DbSet<Cart> Carts => Set<Cart>();
         public DbSet<Event> Events => Set<Event>();
-        public DbSet<Fighter> Fighters => Set<Fighter>();
+        public DbSet<Fighter> Fighters => Set<Fighter>();               //tablice u bazi, svaki set jedna tablica
         public DbSet<Match> Matches => Set<Match>();
         public DbSet<Ticket> Tickets => Set<Ticket>();
-        public DbSet<User> Users => Set<User>();
+        public new DbSet<User> Users => Set<User>();
         public DbSet<FightOrganization> FightOrganizations => Set<FightOrganization>();
         public DbSet<WeightClass> WeightClasses => Set<WeightClass>();
         public DbSet<TicketShopModels> TicketShopModels => Set<TicketShopModels>();
+        public DbSet<EventAttachment> EventAttachments => Set<EventAttachment>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,20 +29,20 @@ namespace TicketingSystemFightNight.Data
 
             modelBuilder.Entity<Match>()
                 .HasOne(m => m.Fighter1)
-                .WithMany(f => f.MatchesAsFighter1)
+                .WithMany(f => f.MatchesAsFighter1)         //odnos matcha i fightera, jedan fighter može biti u više mečeva kao Fighter1
                 .HasForeignKey(m => m.Fighter1Id)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Match>()
                 .HasOne(m => m.Fighter2)
-                .WithMany(f => f.MatchesAsFighter2)
+                .WithMany(f => f.MatchesAsFighter2)         //odnos matcha i fightera, jedan fighter može biti u više mečeva kao Fighter2
                 .HasForeignKey(m => m.Fighter2Id)
                 .OnDelete(DeleteBehavior.Restrict);
 
             var fightOrganizations = new[]
             {
                 new FightOrganization { Id = 1, Name = "UFC" },
-                new FightOrganization { Id = 2, Name = "KSW" },
+                new FightOrganization { Id = 2, Name = "KSW" },         //seed, automatski puni bazu
                 new FightOrganization { Id = 3, Name = "FNC" },
                 new FightOrganization { Id = 4, Name = "BELLATOR" },
                 new FightOrganization { Id = 5, Name = "ONE FC" }

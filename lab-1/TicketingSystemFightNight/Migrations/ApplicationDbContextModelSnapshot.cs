@@ -10,7 +10,7 @@ using TicketingSystemFightNight.Data;
 
 namespace TicketingSystemFightNight.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(VjezbaDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

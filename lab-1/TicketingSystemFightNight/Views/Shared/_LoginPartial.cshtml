@@ -1,0 +1,48 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<TicketingSystemFightNight.Models.AppUser> SignInManager
+@inject UserManager<TicketingSystemFightNight.Models.AppUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    var currentUser = await UserManager.GetUserAsync(User);
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index">
+                Zdravo, @currentUser?.FullName!
+            </a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Odjava</button>
+            </form>
+        </li>
+    </ul>
+}
+else
+{
+    var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Registracija</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Prijava</a>
+        </li>
+        @if (loginProviders.Any())
+        {
+            @foreach (var provider in loginProviders)
+            {
+                <li class="nav-item">
+                    <form asp-area="Identity" asp-page="/Account/ExternalLogin" asp-page-handler="Post"
+                          asp-route-provider="@provider.Name"
+                          asp-route-returnUrl="~/"
+                          method="post" class="d-inline">
+                        <button type="submit" class="nav-link btn btn-link text-dark">
+                            Prijava putem @provider.DisplayName
+                        </button>
+                    </form>
+                </li>
+            }
+        }
+    </ul>
+}

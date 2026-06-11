@@ -12,7 +12,9 @@
 
 <h2>Uredi događaj</h2>
 
-<form asp-action="Edit" method="post">`r`n    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+<form asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
     <input asp-for="Id" type="hidden" />
 
     <div class="form-group">
@@ -66,6 +68,79 @@
     <a class="btn" asp-controller="Event" asp-action="Index">Odustani</a>
 </form>
 
+<hr class="my-4" />
+<div class="row mt-3">
+    <div class="col-md-12">
+        <h4>Privici događaja</h4>
+        <p class="text-muted">Dodajte dokumente, slike ili druge datoteke vezane uz ovaj događaj. Maksimalna veličina: 10MB.</p>
+
+        <form id="attachmentDz"
+              action="/Event/UploadAttachment?eventId=@Model.Id"
+              enctype="multipart/form-data"
+              class="dropzone border border-secondary rounded p-3 mb-3"
+              style="min-height: 120px;">
+            <div class="dz-message text-center text-muted py-3">
+                <i class="bi bi-cloud-upload fs-1"></i>
+                <br />
+                <span>Povucite datoteke ovdje ili kliknite za odabir</span>
+            </div>
+        </form>
+
+        <div id="attachmentList">
+            @await Html.PartialAsync("_AttachmentList", (IEnumerable<TicketingSystemFightNight.Models.EventAttachment>)ViewBag.EventAttachments)
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"></script>
+
+    <script type="text/javascript">
+        Dropzone.autoDiscover = false;
+
+        var myDropzone = new Dropzone("#attachmentDz", {
+            paramName: "file",
+            maxFilesize: 10,
+            acceptedFiles: ".pdf,.jpg,.jpeg,.png,.gif,.doc,.docx,.txt,.zip",
+            addRemoveLinks: true,
+            dictDefaultMessage: "Povucite datoteke ovdje ili kliknite za upload",
+            dictRemoveFile: "Ukloni",
+            dictMaxFilesExceeded: "Ne možete uploadati više datoteka.",
+            success: function(file, response) {
+                loadAttachments();
+                this.removeFile(file);
+            },
+            error: function(file, errorMessage) {
+                alert("Greška pri uploadu: " + (typeof errorMessage === 'string' ? errorMessage : errorMessage.title || 'Nepoznata greška'));
+                this.removeFile(file);
+            }
+        });
+
+        function loadAttachments() {
+            $("#attachmentList").load("/Event/GetAttachments?eventId=@Model.Id");
+        }
+
+        function deleteAttachment(id) {
+            if (!confirm("Jeste li sigurni da želite obrisati ovu datoteku?")) return;
+
+            $.ajax({
+                url: "/Event/DeleteAttachment",
+                method: "POST",
+                data: {
+                    id: id,
+                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                },
+                success: function(response) {
+                    if (response.success) {
+                        loadAttachments();
+                    }
+                },
+                error: function() {
+                    alert("Greška pri brisanju datoteke.");
+                }
+            });
+        }
+    </script>
 }

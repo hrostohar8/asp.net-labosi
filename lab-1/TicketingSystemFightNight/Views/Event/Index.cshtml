@@ -12,7 +12,7 @@
 <h2>Pregled - Događaji</h2>
 <a asp-controller="Event" asp-action="Create" class="btn">Dodaj događaj</a>
 
-<div class="table-filter-wrap">
+<div class="table-filter-wrap" data-ajax-url="@Url.Action("SearchEvents", "Event")">
     <div class="table-filter-controls">
         <input type="search" class="table-search" placeholder="Pretraži događaje..." aria-label="Pretraži događaje" />
         <span class="table-results-counter">0 results found</span>
@@ -24,11 +24,11 @@
             <h3>@eventModel.Name</h3>
             <div class="entity-props">
                 <p><strong>Id:</strong> @eventModel.Id</p>
-                <p><strong>Organizacija:</strong> @eventModel.Organization</p>
+                <p><strong>Organizacija:</strong> @eventModel.Organization?.Name</p>
                 <p><strong>Grad:</strong> @eventModel.City</p>
                 <p><strong>Datum:</strong> @eventModel.Date.ToString("dd.MM.yyyy")</p>
                 <p><strong>Vrijeme:</strong> @eventModel.Time.ToString("hh\\:mm")</p>
-                <p><strong>Arena:</strong> @eventModel.Venue.Name</p>
+                <p><strong>Arena:</strong> @eventModel.Venue?.Name</p>
                 <p><strong>Opis:</strong> @eventModel.Description</p>
                 <p><strong>Osnovna cijena:</strong> @eventModel.BaseTicketPrice.ToString("C")</p>
                 <p><strong>Prodano karata:</strong> @eventModel.TicketsSold</p>
@@ -47,5 +47,5 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/table-filter.js"></script>
+    <script src="~/js/event-search.js"></script>
 }

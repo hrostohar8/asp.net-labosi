@@ -20,12 +20,12 @@ namespace TicketingSystemFightNight.Models
         [ForeignKey("WeightClass")]
         [Range(1, int.MaxValue, ErrorMessage = "Odaberite težinsku kategoriju")]
         public int WeightClassId { get; set; }
-        public virtual WeightClass WeightClass { get; set; } = null!;
+        public virtual WeightClass? WeightClass { get; set; }
 
         [ForeignKey("Organization")]
         [Range(1, int.MaxValue, ErrorMessage = "Odaberite organizaciju")]
         public int OrganizationId { get; set; }
-        public virtual FightOrganization Organization { get; set; } = null!;
+        public virtual FightOrganization? Organization { get; set; }
 
         [Required(ErrorMessage = "Država je obavezna")]
         [StringLength(100, ErrorMessage = "Naziv države ne smije biti duži od 100 znakova")]

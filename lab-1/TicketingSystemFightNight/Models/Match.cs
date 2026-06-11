@@ -12,22 +12,22 @@ namespace TicketingSystemFightNight.Models
         [ForeignKey("Fighter1")]
         [Range(1, int.MaxValue, ErrorMessage = "Odaberite prvog borca")]
         public int Fighter1Id { get; set; }
-        public virtual Fighter Fighter1 { get; set; } = null!;
+        public virtual Fighter? Fighter1 { get; set; }
 
         [ForeignKey("Fighter2")]
         [Range(1, int.MaxValue, ErrorMessage = "Odaberite drugog borca")]
         public int Fighter2Id { get; set; }
-        public virtual Fighter Fighter2 { get; set; } = null!;
+        public virtual Fighter? Fighter2 { get; set; }
 
         [ForeignKey("WeightClass")]
         [Range(1, int.MaxValue, ErrorMessage = "Odaberite težinsku kategoriju")]
         public int WeightClassId { get; set; }
-        public virtual WeightClass WeightClass { get; set; } = null!;
+        public virtual WeightClass? WeightClass { get; set; }
 
         [ForeignKey("Event")]
         [Range(1, int.MaxValue, ErrorMessage = "Odaberite događaj")]
         public int EventId { get; set; }
-        public virtual Event Event { get; set; } = null!;
+        public virtual Event? Event { get; set; }
 
         [Range(1, 12, ErrorMessage = "Broj rundi mora biti između 1 i 12")]
         public int RoundLimit { get; set; }

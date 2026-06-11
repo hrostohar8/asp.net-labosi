@@ -1,0 +1,53 @@
+@page
+@model ExternalLoginModel
+@{
+    ViewData["Title"] = "Prijava putem zewnętrznog servisa";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h2>Autentikacija putem @Model.ProviderDisplayName.</h2>
+<hr />
+
+@if (Model.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<p>
+    Prijavljujete se putem <strong>@Model.ProviderDisplayName</strong>.
+    Molimo unesite dodatne podatke za dovršetak registracije.
+</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" readonly />
+                <label asp-for="Input.Email">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.FullName" class="form-control" placeholder="Ime i prezime" />
+                <label asp-for="Input.FullName">Puno ime</label>
+                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.OIB" class="form-control" placeholder="OIB (11 znamenki)" />
+                <label asp-for="Input.OIB">OIB</label>
+                <span asp-validation-for="Input.OIB" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.JMBG" class="form-control" placeholder="JMBG (13 znamenki)" />
+                <label asp-for="Input.JMBG">JMBG</label>
+                <span asp-validation-for="Input.JMBG" class="text-danger"></span>
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Dovrši registraciju</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,7 @@ using TicketingSystemFightNight.Models.ViewModels;
 
 namespace TicketingSystemFightNight.Controllers
 {
+    [Authorize]
     public class FighterController : Controller
     {
         private readonly VjezbaDbContext _context;
@@ -20,6 +22,7 @@ namespace TicketingSystemFightNight.Controllers
             _environment = environment;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var fighters = await _context.Fighters
@@ -37,6 +40,7 @@ namespace TicketingSystemFightNight.Controllers
             return View(fighters);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [ActionName("Create")]
         public IActionResult CreateGet()
         {
@@ -46,6 +50,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ActionName("Create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePost(FighterCreateViewModel model)
@@ -76,6 +81,7 @@ namespace TicketingSystemFightNight.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var fighter = await _context.Fighters
@@ -93,6 +99,7 @@ namespace TicketingSystemFightNight.Controllers
             return View(fighter);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [ActionName("Edit")]
         public async Task<IActionResult> EditGet(int id)
         {
@@ -122,6 +129,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(int id)
@@ -169,6 +177,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
@@ -184,7 +193,8 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> SearchFighters(string term, int? weightClassId)
+        [AllowAnonymous]
+        public async Task<IActionResult> SearchFighters(string term, int? weightClassId)        // This method is used for AJAX search in dropdowns
         {
             try
             {
@@ -199,16 +209,25 @@ namespace TicketingSystemFightNight.Controllers
                     q = q.Where(f => f.WeightClassId == weightClassId.Value);
                 }
 
-                var results = await q
+                var fighters = await q
                     .Include(f => f.WeightClass)
+                    .Include(f => f.Organization)
                     .OrderBy(f => f.Name)
-                    .Take(10)
-                    .Select(f => new {
-                        Id = f.Id,
-                        Text = f.Name,
-                        Description = f.Name + " '" + f.Nickname + "' | " + f.Country + " | " + (f.WeightClass != null ? f.WeightClass.Name : "")
-                    })
+                    .Take(50)
                     .ToListAsync();
+
+                var results = fighters.Select(f => new {
+                    Id = f.Id,
+                    Text = f.Name,
+                    Description = f.Name + " '" + f.Nickname + "' | " + f.Country + " | " + (f.WeightClass != null ? f.WeightClass.Name : ""),
+                    Nickname = f.Nickname,
+                    Country = f.Country,
+                    WeightClass = f.WeightClass != null ? f.WeightClass.Name : "",
+                    Organization = f.Organization != null ? f.Organization.Name : "",
+                    Wins = f.Wins,
+                    Losses = f.Losses,
+                    ImageUrl = FighterImageHelper.GetFighterImageUrl(_environment, f)
+                });
 
                 return Json(results);
             }

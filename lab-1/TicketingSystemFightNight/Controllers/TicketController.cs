@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ namespace TicketingSystemFightNight.Controllers
 {
     [Route("ulaznice")]
     [Route("Ticket")]
+    [Authorize]
     public class TicketController : Controller
     {
         private readonly VjezbaDbContext _context;
@@ -21,6 +23,7 @@ namespace TicketingSystemFightNight.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         [HttpGet("")]
         public IActionResult Index()
         {
@@ -33,6 +36,7 @@ namespace TicketingSystemFightNight.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [HttpPost("dodaj-u-kosaricu")]
         [ValidateAntiForgeryToken]
         public IActionResult AddToCart(int offerId)

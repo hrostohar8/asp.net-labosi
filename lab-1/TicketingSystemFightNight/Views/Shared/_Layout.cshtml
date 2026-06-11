@@ -38,6 +38,7 @@
                 <li><a class="@(currentController == "Ticket" ? "active" : "")" aria-current="@(currentController == "Ticket" ? "page" : null)" asp-controller="Ticket" asp-action="Index">Karte</a></li>
                 <li><a class="@(currentController == "User" ? "active" : "")" aria-current="@(currentController == "User" ? "page" : null)" asp-controller="User" asp-action="Index">Korisnici</a></li>
                 <li><a class="@(currentController == "Cart" ? "active" : "")" aria-current="@(currentController == "Cart" ? "page" : null)" asp-controller="Cart" asp-action="Current">Košarica</a></li>
+                <partial name="_LoginPartial" />
             </ul>
         </div>
     </nav>

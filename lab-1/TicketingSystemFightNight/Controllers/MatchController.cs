@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using TicketingSystemFightNight.Models.ViewModels;
 
 namespace TicketingSystemFightNight.Controllers
 {
+    [Authorize]
     public class MatchController : Controller
     {
         private readonly VjezbaDbContext _context;
@@ -144,6 +146,7 @@ namespace TicketingSystemFightNight.Controllers
             return Json(new { fighters, weightDistribution });
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [ActionName("Edit")]
         public async Task<IActionResult> EditGet(int id)
         {
@@ -181,6 +184,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(int id)
@@ -230,6 +234,7 @@ namespace TicketingSystemFightNight.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
@@ -242,6 +247,49 @@ namespace TicketingSystemFightNight.Controllers
 
             TempData["SuccessMessage"] = "Meč je uspješno obrisan!";
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchMatches(string term)
+        {
+            try
+            {
+                 IQueryable<Match> q = _context.Matches.AsNoTracking().Where(m => m.DeletedAt == null);
+                 q = q.Include(m => m.Fighter1)
+                     .Include(m => m.Fighter2)
+                     .Include(m => m.Event)
+                     .Include(m => m.WeightClass);
+
+                if (!string.IsNullOrWhiteSpace(term))
+                {
+                    var t = term.Trim().ToLower();
+                    q = q.Where(m => (m.Fighter1 != null && m.Fighter1.Name != null && m.Fighter1.Name.ToLower().Contains(t))
+                                  || (m.Fighter2 != null && m.Fighter2.Name != null && m.Fighter2.Name.ToLower().Contains(t))
+                                  || (m.Event != null && m.Event.Name != null && m.Event.Name.ToLower().Contains(t))
+                                  || (m.Status != null && m.Status.ToLower().Contains(t)) );
+                }
+
+                var matches = await q.OrderBy(m => m.Event.Date).Take(50).ToListAsync();
+
+                var results = matches.Select(m => new {
+                    Id = m.Id,
+                    Title = (m.Fighter1 != null ? m.Fighter1.Name : "") + " vs " + (m.Fighter2 != null ? m.Fighter2.Name : ""),
+                    Fighter1 = m.Fighter1 != null ? m.Fighter1.Name : "",
+                    Fighter2 = m.Fighter2 != null ? m.Fighter2.Name : "",
+                    WeightClass = m.WeightClass != null ? m.WeightClass.Name : "",
+                    Event = m.Event != null ? m.Event.Name : "",
+                    RoundLimit = m.RoundLimit,
+                    Championship = m.Championship,
+                    Referee = m.Referee,
+                    Status = m.Status
+                });
+
+                return Json(results);
+            }
+            catch (Exception ex)
+            {
+                return Json(new[] { new { Id = 0, Title = "", Description = "Greška pri pretrazi: " + ex.Message } });
+            }
         }
     }
 }

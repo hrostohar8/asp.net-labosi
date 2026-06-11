@@ -14,7 +14,7 @@ namespace TicketingSystemFightNight.Models
         [ForeignKey("User")]
         [Range(1, int.MaxValue, ErrorMessage = "Odaberite korisnika")]
         public int UserId { get; set; }
-        public virtual User User { get; set; } = null!;
+        public virtual User? User { get; set; }
 
         public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
