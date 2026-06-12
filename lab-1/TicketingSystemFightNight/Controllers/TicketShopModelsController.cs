@@ -28,6 +28,19 @@ namespace TicketingSystemFightNight.Controllers
             return View(offers);
         }
 
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
+        {
+            var offer = await _context.TicketShopModels
+                .Where(o => o.DeletedAt == null)
+                .FirstOrDefaultAsync(o => o.Id == id);
+
+            if (offer == null)
+                return NotFound();
+
+            return View(offer);
+        }
+
         [ActionName("Create")]
         [Authorize(Roles = "Admin,Manager")]
         public IActionResult CreateGet()

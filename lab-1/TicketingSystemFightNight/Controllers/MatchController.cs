@@ -70,6 +70,7 @@ namespace TicketingSystemFightNight.Controllers
 
         [HttpPost]
         [ActionName("Create")]
+        [Authorize(Roles = "Admin,Manager")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePost(MatchCreateViewModel model)
         {

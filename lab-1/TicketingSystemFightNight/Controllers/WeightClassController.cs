@@ -28,6 +28,19 @@ namespace TicketingSystemFightNight.Controllers
             return View(weightClasses);
         }
 
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
+        {
+            var weightClass = await _context.WeightClasses
+                .Where(w => w.DeletedAt == null)
+                .FirstOrDefaultAsync(w => w.Id == id);
+
+            if (weightClass == null)
+                return NotFound();
+
+            return View(weightClass);
+        }
+
         [ActionName("Create")]
         [Authorize(Roles = "Admin,Manager")]
         public IActionResult CreateGet()
